@@ -1,0 +1,15 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+    vector<int> v={-5,1,-2,3,-1,2,-2};
+    
+    int res=v[0];
+    int max_ending=v[0];
+    for(int i=1;i<v.size();i++){
+        max_ending=max(max_ending+v[i],v[i]);
+        res=max(res,max_ending);
+    }
+    cout<<res;
+}

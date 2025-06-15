@@ -1,0 +1,14 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	//there is no max fn for vector.
+	vector<int> v={1,2,3,-1,5,8,-800};
+	int res=v[0];
+	for(int i=1;i<v.size();i++){
+	    res=(v[i]>res)?v[i]:res;
+	}
+	cout<<res;
+	
+}

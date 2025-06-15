@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+    vector<int> v={1,2,3,4,1,5,2,6};
+    int k=4;
+    
+    int unique=0;
+    map<int,int> mp;
+    for(int i=0;i<k;i++){
+        if(mp.find(v[i])!=mp.end()){
+            mp[v[i]]=mp[v[i]]+1;
+        }else{
+            mp[v[i]]=1;
+            unique+=1;
+        }
+    }
+    cout<<unique<<endl;
+
+    for(int i=k;i<v.size();i++){
+        mp[v[i-k]]=mp[v[i-k]]-1;
+        if(mp[v[i-k]]==0){
+            unique-=1;
+        }
+        if(mp.find(v[i])!=mp.end()){
+            if(mp[v[i]]==0){
+                mp[v[i]]=1;
+                unique+=1;
+            }else{
+            mp[v[i]]=mp[v[i]]+1;
+            }
+        }else{
+            mp[v[i]]=1;
+            unique+=1;
+        }
+        
+        cout<<unique<<endl;
+        
+    }
+}

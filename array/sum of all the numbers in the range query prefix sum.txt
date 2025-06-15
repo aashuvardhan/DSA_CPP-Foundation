@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+    vector<int> v={2,8,3,9,6,5,4};
+    
+    //prefix sum
+    vector<int> prefix;
+    int sum=v[0];
+    prefix.push_back(sum);
+    
+    for(int i=1;i<v.size();i++){
+        sum+=v[i];
+        prefix.push_back(sum);
+    }
+    
+    int n=3;
+    for(int i=0;i<n;i++){
+        int start,end;
+        cin>>start>>end;
+        if(start==0){
+            cout<<prefix[end]<<endl;
+        }else{
+            int temp=prefix[end]-prefix[start-1];
+            cout<<temp<<endl;
+        }
+        
+        
+        
+    }
+    
+}

@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+    vector<int> left={1,2,5,15};
+    vector<int> right={5,8,7,18};
+    
+    vector<int> ranger(1000);
+    for(int i=0;i<left.size();i++){
+        ranger[left[i]]+=1;
+        ranger[right[i]+1]-=1;
+        
+    }
+    int res=0;
+    int maxtill=ranger[0];
+    int sum=ranger[0];
+    
+    for(int i=1;i<ranger.size();i++){
+        sum+=ranger[i];
+        if(sum>maxtill){
+            maxtill=sum;
+            res=i;
+        }
+    }
+    cout<<res;
+    
+}

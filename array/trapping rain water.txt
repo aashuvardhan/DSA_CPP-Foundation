@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	vector<int> v={5,0,6,2,3} ;
+	vector<int> lmax(v.size()),rmax(v.size());
+	
+	lmax[0]=v[0];
+	for(int i=1;i<v.size();i++){
+	    lmax[i]=max(lmax[i-1],v[i]);
+	}
+	int j=v.size();
+	rmax[j-1]=v[j-1];
+	
+	for(j-=2;j>=0;j--){
+	    rmax[j]=max(rmax[j+1],v[j]);
+	}
+	
+	int res=0;
+	for(int i=0;i<v.size();i++){
+	    res+=min(lmax[i],rmax[i])-v[i];
+	}
+	cout<<res;
+}

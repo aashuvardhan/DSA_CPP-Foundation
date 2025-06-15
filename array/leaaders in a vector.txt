@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int main() {
+	// your code goes here
+    vector<int> v={7,10,4,3,6,5,2};
+    vector<int> v1;
+    auto itr=v.rbegin();
+    
+    
+    int prev=*(itr);
+    v1.push_back(*(itr));
+    itr++;
+    while(itr!=v.rend()){
+        if(*itr>prev){
+            v1.push_back(*itr);
+            
+            prev=*itr;
+        }
+        itr++;
+    }
+    reverse(v1.begin(),v1.end());
+    for(auto ele: v1){
+        cout<<ele<<" ";
+    }
+	
+	
+
+}

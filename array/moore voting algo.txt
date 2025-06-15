@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int main() {
+	// your code goes here
+    vector<int> v={3,7,4,7,7,5};
+    //moore voting algo
+    int res=0;
+    int count=1;
+    
+    for(int i=1;i<v.size();i++){
+        if(v[res]==v[i]){
+            count++;
+        }else{
+            count--;
+        }
+        if(count==0){
+            res=i;
+            count=1;
+        }
+        
+    }
+    int counter=0;
+    for(int i=0;i<v.size();i++){
+        if(v[i]==v[res]){
+            counter++;
+        }
+    }
+    if(counter>(v.size()/2)){
+        cout<<res;
+    }else{
+        cout<<-1;
+    }
+    
+    
+}

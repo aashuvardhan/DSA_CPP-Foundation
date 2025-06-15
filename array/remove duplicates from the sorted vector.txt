@@ -1,0 +1,24 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	vector<int> v={1,2,2,3,3,3,3,4,5,6,6,6,7,8,8};
+	int prev=v[0];
+	auto it1=v.begin();
+	auto it2=v.begin();
+	it2++;
+	
+	while(it2!=v.end()){
+	    if(*it1==*it2){
+	        v.erase(it2);
+	    }else{
+	        it1=it2;
+	        it2++;
+	    }
+	}
+	for(auto ele: v){
+	    cout<<ele<<" ";
+	}
+
+}
