@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int n;
+	cin>>n;
+	
+	vector<int> arr;
+	vector<int> prefix_sum;
+	vector<int> rem_arr(n,-1);
+	
+	for(int i=0;i<n;i++){
+	    int m;
+	    cin>>m;
+        arr.push_back(m);	    
+	}
+	int sum=arr[0];
+	prefix_sum.push_back(sum);
+	int rem=sum%n;
+	//cout<<"rem: "<<rem<<endl;
+	if(rem==0){
+	    cout<<1<<"=="<<1<<endl;
+	}else{
+	    for(int i=1;i<n;i++){
+	        sum+=arr[i];
+	        prefix_sum.push_back(sum);
+	        rem=sum%n;
+	        //cout<<"rem: "<<rem<<endl;
+	        if(rem==0){
+	            cout<<1<<"=="<<i+1<<endl;
+	        }else if(rem_arr[rem]==-1){
+	            rem_arr[rem]=i;
+	        }else{
+	            cout<<rem_arr[rem]+1<<"=="<<i<<endl;
+	        }
+	    }
+	}
+
+}

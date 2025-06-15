@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	
+    int n,m;
+    cin>>n>>m;
+    
+    if(n>m){
+       int t=m;
+       m=n;
+       n=t;
+    }
+    int rem=m%n;
+    while(rem!=0){
+        m=n;
+        n=rem;
+        rem=m%n;
+        
+    }
+	cout<<n<<endl;
+return 0;
+}

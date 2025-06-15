@@ -1,0 +1,19 @@
+void prime(int n){
+    if(n==1)
+    cout<<"Neither"<<endl;
+    else if(n==2 or n==3)
+    cout<<"Prime"<<endl;
+    else if(n%2==0 or n%3==0)
+    cout<<"Not Prime";
+    else{
+        int flag=false;
+        for(int i=5;i<int(sqrt(n)+1);i+=6){
+            if(n%i==0 or n%(i+2)==0){
+                cout<<"Not Prime"<<endl;
+                flag=true;
+            }
+        }
+        if(!flag)
+        cout<<"Prime"<<endl;
+    }
+}

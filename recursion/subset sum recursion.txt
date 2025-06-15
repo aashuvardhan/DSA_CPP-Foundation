@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool subset_sum(int *ptr,int sum,int len){
+    if(len==0){
+        if(sum==0)
+        return true;
+        else
+        return false;
+    }
+    
+    return subset_sum(ptr,sum,len-1)+subset_sum(ptr,sum-*(ptr+len-1),len-1);
+    
+    
+    
+}
+
+
+int main() {
+	// your code goes here
+	vector<int> v={10,20,15};
+	int *ptr=&v[0];
+	cout<<subset_sum(ptr,25,3)<<endl;
+
+}

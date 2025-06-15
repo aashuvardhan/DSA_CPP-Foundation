@@ -1,0 +1,12 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int main() {
+	// your code goes here
+	vector<int> v={10,20,15};
+	int *ptr=&(*(v.end()-1));
+	
+	cout<<*ptr<<endl;
+
+}

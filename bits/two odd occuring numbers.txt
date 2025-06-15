@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int main() {
+    int n;
+    cin>>n;
+    vector<int> v;
+    for(int i=0;i<n;i++){
+        int m;
+        cin>>m;
+        v.push_back(m);
+    }
+    int xr=0;
+    for(int i=0;i<n;i++){
+        xr=xr^v[i];
+    }
+    
+    int sn=xr&(~(xr-1));
+    int xr1=0,xr2=0;
+    for(int i=0;i<n;i++){
+        if((v[i]&sn)!=0){
+            xr1=xr1^v[i];
+        }
+        else{
+            xr2=xr2^v[i];
+        }
+    }
+    cout<<xr1<<endl;
+    cout<<xr2<<endl;
+    
+    
+}
