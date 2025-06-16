@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+    vector<int> v={1,10,10,10,20,20,40};
+    int low=0;
+    int high=v.size()-1;
+    int x=20;
+    int res=-1;
+    while(low<=high){
+        int mid=(low+high)/2;
+        if(v[mid]==x){
+            if(mid>0 && v[mid-1]==x){
+                high=mid-1;
+            }else{
+                res=mid;
+                break;
+            }
+        }else if(v[mid]>x){
+            high=mid-1;
+        }else{
+            low=mid+1;
+        }
+    }
+    cout<<res;
+    
+}

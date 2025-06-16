@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+bool isFeasible(int *ptr,int n, int k,int ans){
+    int count=1;
+    int tempsum=0;
+    for(int i=0;i<n;i++){
+        int value=*(ptr+i);
+        if((tempsum+value)<=ans){
+            tempsum+=value;
+        }else{
+            count+=1;
+            tempsum=value;
+        }
+    }
+    return (count<=k);
+}
+
+
+int main() {
+	// your code goes here
+    vector<int> v={10,20,10,30};
+    int k=2;
+    int sum=v[0];
+    int maxi=v[0];
+    for(int i=1;i<v.size();i++){
+        sum+=v[i];
+        maxi=max(maxi,v[i]);
+    }
+    
+    int *ptr=&v[0];
+    
+    int low=maxi;
+    int high=sum;
+    int res=-1;
+    while(low<=high){
+        int mid=(low+high)/2;
+        if(isFeasible(ptr,v.size(),k,mid)){
+            res=mid;
+            high=mid-1;
+        }else{
+            low=mid+1;
+        }
+    }
+    cout<<res;
+}

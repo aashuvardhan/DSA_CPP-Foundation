@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isPair(int *ptr,int sum,int *last_ptr){
+    int *first_ptr=ptr;
+    
+    //cout<<*first_ptr<<"  "<<*last_ptr<<"   "<<sum;
+    while(first_ptr!=last_ptr){
+        int value=*first_ptr+*last_ptr;
+        if(value==sum){
+            return true;
+        }else if(value<sum){
+            first_ptr++;
+        }else{
+            last_ptr--;
+        }
+    }
+    return false;
+}
+
+
+int main() {
+	// your code goes here
+    vector<int> v={2,3,4,8,9,20,40};
+    int n=v.size();
+    int su=100;
+    int *last_ptr=&(*(v.rbegin()));
+    bool flag=false;
+    
+    for(int i=0;i<n-2;i++){
+        int *ptr=&(v[i+1]);
+        
+        //cout<<v[i]<<" ::::";
+        if(isPair(ptr,su-v[i],last_ptr)){
+            flag=true;
+            break;
+        }
+        
+    }
+    
+    if(flag){
+        cout<<"exist";
+    }else{
+        cout<<"not exist";
+    }
+    
+}
