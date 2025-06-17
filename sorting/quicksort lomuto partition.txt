@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int lomuto_partition(int *ptr,int low,int high){
+    int pivot=*(ptr+high);
+    int i=low-1;
+    for(int j=low;j<high;j++){
+        if(*(ptr+j)<pivot){
+            i++;
+            int temp=*(ptr+j);
+            *(ptr+j)=*(ptr+i);
+            *(ptr+i)=temp;
+        }
+        
+    }
+    int temp=*(ptr+i+1);
+    *(ptr+i+1)=pivot;
+    *(ptr+high)=temp;
+    return i+1;
+    
+}
+
+
+void quicksort(int *ptr,int low,int high){
+    if(low<high){
+        
+        int pivot=lomuto_partition(ptr,low,high);
+        quicksort(ptr,low,pivot-1);
+        quicksort(ptr,pivot+1,high);
+        
+    }
+}
+
+
+int main() {
+	// your code goes here
+	vector<int> v={40,30,20,35,45,-1,10,20,30,-35};
+	int *ptr=&v[0];
+	quicksort(ptr,0,v.size()-1);
+	
+	for(auto ele: v){
+	    cout<<ele<<" ";
+	}
+	
+}

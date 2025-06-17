@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int lomuto_partition(int *ptr,int low,int high){
+    int pivot=*(ptr+high);
+    int i=low-1;
+    for(int j=low;j<high;j++){
+        if(*(ptr+j)<pivot){
+            i++;
+            int temp=*(ptr+j);
+            *(ptr+j)=*(ptr+i);
+            *(ptr+i)=temp;
+        }
+        
+    }
+    int temp=*(ptr+i+1);
+    *(ptr+i+1)=pivot;
+    *(ptr+high)=temp;
+    return i+1;
+    
+}
+
+
+int main() {
+	// your code goes here
+    vector<int> v={30,20,5,10,8};
+    int k=4;
+    int *ptr=&v[0];
+    int low=0;
+    int high=v.size()-1;
+    int res=-1;
+    while(low<=high){
+        int p=lomuto_partition(ptr,low,high);
+        if(p==(k-1)){
+            res=v[p];
+            break;
+        }else if(p<(k-1)){
+            low=p+1;
+        }else{
+            high=p-1;
+        }
+    }
+    cout<<res;
+    
+}

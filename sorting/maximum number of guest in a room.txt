@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+
+int main() {
+	// your code goes here
+    vector<int> arr={900,600,700};
+    vector<int> dep={1000,800,730};
+    
+    sort(arr.begin(),arr.end());
+    sort(dep.begin(),dep.end());
+    
+    int i=0;
+    int n=arr.size();
+    int j=0;
+    
+    int res=0;
+    int count=0;
+    while(i<n){
+        if(arr[i]<=dep[j]){
+            count++;
+            res=max(res,count);
+            i++;
+        }else{
+            count-=1;
+            j++;
+        }
+    }
+    cout<<res;
+    
+}
