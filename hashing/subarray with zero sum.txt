@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	vector<int> v={3,2,-2,5,6};
+	unordered_set<int> s;
+	int prefix_sum=0;
+	bool flag=false;
+	for(auto ele:v){
+	    prefix_sum+=ele;
+	    auto it=s.find(prefix_sum);
+	    if(prefix_sum==0){
+	        flag=true;
+	        break;
+	    }else if(it!=s.end()){
+	        flag=true;
+	        break;
+	    }else{
+	        s.insert(prefix_sum);
+	    }
+	}
+	
+	if(flag==false){
+	    cout<<"Not there";
+	}else{
+	    cout<<"it is there";
+	}
+
+}

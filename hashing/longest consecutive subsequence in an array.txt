@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	vector<int> v={3,8,4,5,7,0,-1,-2,-3,-4,-5};
+	unordered_set<int> s;
+	for(auto ele: v){
+	    s.insert(ele);
+	}
+	int res=0;
+	
+	for(int i=0;i<v.size();i++){
+	    int count=0;
+	    auto it=s.find(v[i]-1);
+	    if(it==s.end()){
+	        count=1;
+	        while(s.find(v[i]+count)!=s.end()){
+	            count+=1;
+	        }
+	        res=max(res,count);
+	    }
+	    
+	}
+	cout<<res<<endl;
+
+}

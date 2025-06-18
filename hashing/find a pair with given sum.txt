@@ -1,0 +1,24 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	vector<int> v={3,1,-2,5,6};
+	int sum=4;
+	unordered_set<int> s;
+	bool flag=false;
+	for(auto ele: v){
+	    auto it=s.find(sum-ele);
+	    if(it!=s.end()){
+	        flag=true;
+	        break;
+	    }
+	    s.insert(ele);
+	}
+	if(flag){
+	    cout<<"Yes pair exist";
+	}else{
+	    cout<<"No";
+	}
+
+}

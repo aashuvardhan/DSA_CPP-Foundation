@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	vector<int> v1={10,15,20,15,30,30,5};
+	vector<int> v2={30,5,30,80,15};
+	unordered_set<int> s;
+	
+	for(auto ele:v1){
+	    s.insert(ele);
+	}
+	int count=0;
+	for(auto ele: v2){
+	    auto it=s.find(ele);
+	    if(it!=s.end()){
+	        count++;
+	        s.erase(it);
+	    }
+	}
+	cout<<count;
+
+}

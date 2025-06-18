@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	vector<int> v={10,20,20,10,30,40,10};
+	int k=4;
+	
+	unordered_map<int,int> umap;
+	for(int i=0;i<k;i++){
+	    umap[v[i]]++;
+	}
+	
+	cout<<umap.size()<<endl;
+	for(int i=k;i<v.size();i++){
+	    umap[v[i]]++;
+	    umap[v[i-k]]--;
+	    if(umap[v[i-k]]==0){
+	        umap.erase(v[i-k]);
+	    }
+	    cout<<umap.size()<<endl;
+	}
+	
+	
+	
+
+}
