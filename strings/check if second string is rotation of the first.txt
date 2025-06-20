@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int main() {
+	// your code goes here
+	string str;
+	getline(cin,str);
+	
+	string str2;
+	getline(cin,str2);
+	
+	if(str.size()!=str2.size()){
+	    cout<<"No they are not";
+	}else{
+	
+	    if((str+str).find(str2)!=string::npos){
+	        cout<<"Yes they are rotations";
+	    }else{
+	        cout<<"NO they are not";
+	    }
+    }
+}
+	
+	

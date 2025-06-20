@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	string str;
+	getline(cin,str);
+	
+	vector<int> visited(256,-1);
+	for(int i=0;i<str.size();i++){
+	    int pos=str[i]-'a';
+	    if(visited[pos]==-1){
+	        visited[pos]=i;
+	    }else{
+	        visited[pos]=-2;
+	    }
+	}
+	int res=-1;
+	for(int i=0;i<str.size();i++){
+	    int pos=str[i]-'a';
+	    if(visited[pos]>-1){
+	        res=i;
+	        break;
+	    }
+	}
+	cout<<res;
+	
+}

@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void permute(string s, int i){
+    if(i==s.size()-1){
+        cout<<s<<endl;
+    }
+    for(int j=i;j<s.size();j++){
+        char t=s[i];
+        s[i]=s[j];
+        s[j]=t;
+        
+        permute(s,i+1);
+        
+        t=s[i];
+        s[i]=s[j];
+        s[j]=t;
+    }
+}
+
+int main() {
+	string s;
+	cin>>s;
+	permute(s,0);
+
+}

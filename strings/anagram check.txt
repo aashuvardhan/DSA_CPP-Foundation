@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	string str;
+	getline(cin,str);
+	
+	string pat;
+	getline(cin,pat);
+	
+	int n1=str.size();
+	int n2=pat.size();
+	if(n1!=n2){
+	    cout<<"Not anagram";
+	}else{
+	    
+	    bool flag=true;
+	    vector<int> v(256);
+	    for(int i=0;i<n1;i++){
+	        int pos1=str[i]-'a';
+	        int pos2=pat[i]-'a';
+	        v[pos1]++;
+	        v[pos2]--;
+	    }
+	    for(int i=0;i<256;i++){
+	        if(v[i]!=0){
+	            flag=false;
+	            break;
+	        }
+	    }
+	    if(flag){
+	        cout<<"anagram";
+	    }else{
+	        cout<<"Not anagram";
+	    }
+	}
+	
+}

@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	string str;
+	getline(cin,str);
+	
+	int low=0;
+	int high=str.size()-1;
+	bool flag=true;
+	while(low<=high){
+	    if(str[low]!=str[high]){
+	        flag=false;
+	        break;
+	    }
+	    low++;
+	    high--;
+	}
+	if(flag){
+	    cout<<"Palindrome";
+	}else{
+	    cout<<"Not palindrome";
+	}
+
+}

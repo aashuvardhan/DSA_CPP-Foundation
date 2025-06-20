@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool comparator(int *ptr,int *ptr2){
+    for(int i=0;i<256;i++){
+        if(*(ptr+i)!=*(ptr2+i)){
+            return false;
+        }
+    }
+    return true;
+}
+
+int main() {
+	// your code goes here
+	string str;
+	getline(cin,str);
+	
+	string pat;
+	getline(cin,pat);
+	
+	vector<int> counter1(256);
+	vector<int> counter2(256);
+	
+	for(int i=0;i<pat.size();i++){
+	    int pos1=str[i]-'a';
+	    int pos2=pat[i]-'a';
+	    
+	    counter1[pos1]++;
+	    counter2[pos2]++;
+	    
+	}
+	if(comparator(&counter1[0],&counter2[0])){
+	    cout<<"found the anagram at pos: 0";
+	}else{
+	    int n=pat.size();
+	    int res=-1;
+	    for(int k=n;k<str.size();k++){
+	        int pos=str[k]-'a';
+	        counter1[pos]++;
+	        int pos2=str[k-n]-'a';
+	        counter1[pos2]--;
+	        if(comparator(&counter1[0],&counter2[0])){
+	            res=(k-n+1);
+	            break;
+	        }
+	    }
+	    
+	    if(res==-1){
+	        cout<<"Not found the anagram";
+	    }else{
+	        cout<<"found the anagram at pos: "<<res<<endl;
+	    }
+	    
+	}
+	
+	
+}
+	
+	

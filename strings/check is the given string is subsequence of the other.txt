@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	string str;
+	getline(cin,str);
+	
+	string pat;
+	getline(cin,pat);
+	
+	int i=0;
+	int j=0;
+	int n1=str.size();
+	int n2=pat.size();
+	
+	while(i<n1 and j<n2){
+	    if(str[i]==pat[j]){
+	        j++;
+	    }
+	    i++;
+	}
+	if(j==n2){
+	    cout<<"subsequence";
+	}else{
+	    cout<<"Not subsequence";
+	}
+	
+	
+}
