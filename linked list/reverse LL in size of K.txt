@@ -1,0 +1,31 @@
+
+Node* reverseNodeInSizeK(Node *head,int k){
+    Node* curr=head;
+    Node* prevFirst=NULL;
+    bool isFirstPass=true;
+    
+    while(curr!=NULL){
+        Node* first=curr;
+        Node* prev=NULL;
+        int count=0;
+        while(curr!=NULL and count<k){
+            Node* next=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=next;
+            count++;
+            
+        }
+        if(isFirstPass){
+            isFirstPass=false;
+            head=prev;
+        }else{
+            prevFirst->next=prev;
+        }
+        prevFirst=first;
+        
+    }
+    return head;
+    
+    
+}

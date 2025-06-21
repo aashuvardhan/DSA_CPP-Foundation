@@ -1,0 +1,15 @@
+Node* nthNodeFromEnd(Node* head, int n){
+    Node* slow=head;
+    Node* fast=head;
+    int count=0;
+    while(count<n){
+        fast=fast->next;
+        count++;
+    }
+    while(fast!=NULL){
+        slow=slow->next;
+        fast=fast->next;
+    }
+    return slow;
+    
+}

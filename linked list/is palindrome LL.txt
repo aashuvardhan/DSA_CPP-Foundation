@@ -1,0 +1,37 @@
+
+Node* reverseList(Node* head){
+    Node* curr=head;
+    Node* next=NULL;
+    Node* prev=NULL;
+    while(curr!=NULL){
+        next=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=next;
+    }
+    return prev;
+}
+
+bool isPalindrome(Node* head){
+    if(head==NULL)
+    return true;
+    
+    Node* slow=head;
+    Node* fast=head;
+    while(fast->next!=NULL and fast->next->next!=NULL){
+        slow=slow->next;
+        fast=fast->next->next;
+    }
+    
+    Node* rev=reverseList(slow->next);
+    
+    Node* curr=head;
+    while(rev!=NULL){
+        if(rev->data!=curr->data){
+            return false;
+        }
+        rev=rev->next;
+        curr=curr->next;
+    }
+    return true;
+}
