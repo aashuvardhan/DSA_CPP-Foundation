@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	string str;
+	getline(cin,str);
+	
+	vector<char> stack;
+	bool flagger=true;
+	for(int i=0;i<str.size();i++){
+	    if(str[i]=='(' or str[i]=='{' or str[i]=='['){
+	        stack.push_back(str[i]);
+	    }else if(stack.size()>0){
+	        char lastele=*(stack.rbegin());
+	        if(str[i]==')' and lastele!='('){
+	            flagger=false;
+	            break;
+	        }else if(str[i]=='}' and lastele!='{'){
+	            flagger=false;
+	            break;
+	        }else if(str[i]==']' and lastele!='['){
+	            flagger=false;
+	            break;
+	        }else{
+	            stack.pop_back();
+	        }
+	        
+	    }else{
+	        flagger=false;
+	        break;
+	    }
+	}
+	if(stack.size()==0 and flagger){
+	    cout<<"balanced";
+	}else{
+	    cout<<"unbalanced";
+	}
+
+}

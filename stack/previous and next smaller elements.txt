@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+vector<int> prev_smallr(int *ptr,int n){
+    vector<int> stack;
+    vector<int> res;
+    res.push_back(-1);
+    stack.push_back(*(ptr));
+    for(int i=1;i<n;i++){
+        while(stack.size()!=0){
+            int lastele=*(stack.rbegin());
+            if(lastele>=*(ptr+i)){
+                stack.pop_back();
+            }else{
+                break;
+            }
+        }
+        int val=(stack.size()==0)?-1:*(stack.rbegin());
+        res.push_back(val);
+        stack.push_back(*(ptr+i));
+    }
+    return res;
+}
+
+
+
+int main() {
+	// your code goes here
+	vector<int> v={13,15,12,14,16,8,6,4,10,30};
+	
+	//previous smaller
+	vector<int> prev_small=prev_smallr(&v[0],v.size());
+	
+	
+	//next smaller
+	vector<int> v_copy(v);
+	reverse(v_copy.begin(),v_copy.end());
+
+	vector<int> next_small_temp_res=prev_smallr(&v_copy[0],v_copy.size());
+	
+	reverse(next_small_temp_res.begin(),next_small_temp_res.end());
+	
+	
+	
+}
