@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node{
+    int data;
+    Node* left;
+    Node* right;
+    Node(int x){
+        data=x;
+        left=NULL;
+        right=NULL;
+    }
+};
+
+int diameter(Node* root,int *ptr){
+    if(root==NULL){
+        return 0;
+    }
+    int lh=diameter(root->left,ptr);
+    int rh=diameter(root->right,ptr);
+    
+    *ptr=max(*ptr,lh+rh+1);
+    return max(lh,rh)+1;
+    
+}
+
+
+int main() {
+	// your code goes here
+	Node* root=new Node(20);
+	root->left=new Node(12);
+	root->right=new Node(8);
+	root->right->left=new Node(3);
+	root->right->right=new Node(5);
+	
+	int res=INT_MIN;
+	diameter(root,&res);
+	cout<<res;
+
+}

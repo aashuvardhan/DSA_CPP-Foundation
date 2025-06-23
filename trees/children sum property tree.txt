@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node{
+    int data;
+    Node* left;
+    Node* right;
+    Node(int x){
+        left=NULL;
+        right=NULL;
+        data=x;
+    }
+};
+
+
+bool childrensum(Node* root){
+    if(root==NULL){
+        return true;
+    }
+    if(root->left==NULL and root->right==NULL){
+        return true;
+    }
+    int lv=(root->left!=NULL)?root->left->data:0;
+    int rv=(root->right!=NULL)?root->right->data:0;
+    if(root->data==(lv+rv) and childrensum(root->left) and childrensum(root->right)){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
+
+int main() {
+	// your code goes here
+	Node* root=new Node(20);
+	root->left=new Node(12);
+	root->right=new Node(8);
+	root->right->left=new Node(3);
+	root->right->right=new Node(5);
+	
+	cout<<childrensum(root);
+
+}
