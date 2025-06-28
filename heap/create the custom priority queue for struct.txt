@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Person{
+    int age;
+    int height;
+    Person(int x,int y){
+        age=x;
+        height=y;
+    }
+};
+
+struct mycomp{
+    bool operator()(const Person& P1,const Person& P2){
+       if(P1.height>P2.height){
+           return true;
+       }else{
+           return false;
+       }
+    }
+};
+
+
+
+int main() {
+	// your code goes here
+	
+	priority_queue<Person,vector<Person>, mycomp> pq;
+	//this creates a min heap by default
+	// in order to change it to max heap u need to interchange the true and false in the comparator function above.
+	
+	Person* p1=new Person(10,7);
+	Person* p2=new Person(50,6);
+	
+	pq.push(*p1);
+	pq.push(*p2);
+	
+	cout<<(pq.top()).age;
+	
+	
+	return 0;
+
+}

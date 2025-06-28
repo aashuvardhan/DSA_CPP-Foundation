@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	
+	vector<int> v={5,6,8,9,2,1,4,3,4};
+	
+	priority_queue<int> pq(v.begin(),v.end());
+	// efficient way to heapify the vector O(n)
+	
+	
+	cout<<pq.size()<<endl;
+	cout<<pq.top()<<endl;
+	
+	while(pq.empty()==false){
+	    cout<<pq.top()<<" ";
+	    pq.pop();
+	}
+	
+	return 0;
+
+}
