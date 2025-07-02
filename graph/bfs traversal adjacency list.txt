@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void bfs_traversal(vector<vector<int>>& graph,int source){
+    
+    vector<bool> visited(graph.size(),false);
+    queue<int> q;
+    q.push(source);
+    visited[source]=true;
+    while(q.empty()==false){
+        int curr=q.front();
+        q.pop();
+        cout<<curr<<" ";
+        for(int adj: graph[curr]){
+            if(visited[adj]==false){
+                q.push(adj);
+                visited[adj]=true;
+            }
+            
+            
+        }
+    }
+    
+}
+
+
+int main() {
+	// your code goes here
+	int n;
+	cin>>n;
+	int m;
+	cin>>m;
+	
+	vector<vector<int>> graph(n);
+	
+	for(int i=0;i<m;i++){
+	    int u,v;
+	    cin>>u;
+	    cin>>v;
+	    graph[u].push_back(v);
+	    graph[v].push_back(u);
+
+	    
+	}
+	bfs_traversal(graph,0);
+
+}

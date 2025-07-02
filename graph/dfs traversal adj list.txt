@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+
+
+void dfs_traversal(vector<vector<int>>& graph,int source,vector<bool>& visited){
+    
+    visited[source]=true;
+    cout<<source<<" ";
+    for(int adj: graph[source]){
+            if(visited[adj]==false){
+                dfs_traversal(graph,adj,visited);
+            }
+    }
+    
+    
+}
+
+
+int main() {
+	// your code goes here
+	int n;
+	cin>>n;
+	int m;
+	cin>>m;
+	
+	vector<vector<int>> graph(n);
+	
+	for(int i=0;i<m;i++){
+	    int u,v;
+	    cin>>u;
+	    cin>>v;
+	    graph[u].push_back(v);
+	    graph[v].push_back(u);
+	    
+	}
+	
+	vector<bool> visited(n,false);
+	
+	dfs_traversal(graph,0,visited);
+
+}

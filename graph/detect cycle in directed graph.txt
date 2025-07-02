@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+
+bool detect_cycle_directed(vector<vector<int>>& graph,vector<bool>& visited,int source){
+    visited[source]=true;
+    for(int adj: graph[source]){
+        if(visited[adj]==false){
+            if(detect_cycle_directed(graph,visited,adj)==true){
+                return true;
+            }
+        }else{
+            return true;
+        }
+    }
+    return false;
+}
+
+
+int main() {
+	// your code goes here
+	int n,m;
+	cin>>n;
+	cin>>m;
+	
+	vector<vector<int>> graph(n);
+	for(int i=0;i<m;i++){
+	    int u,v;
+	    cin>>u>>v;
+	    graph[u].push_back(v);
+	}
+	
+	vector<bool> visited(n,false);
+	cout<<detect_cycle_directed(graph,visited,0);
+	
+	
+	
+
+}

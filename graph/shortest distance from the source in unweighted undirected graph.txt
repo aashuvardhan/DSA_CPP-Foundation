@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+void shortest_path_unweighted(vector<vector<int>>& graph, int source){
+    
+    vector<int> distance(graph.size(),INT_MAX);
+    distance[source]=0;
+    queue<int> q;
+    q.push(source);
+    vector<bool> visited(graph.size(),false);
+    visited[source]=true;
+    
+    while(q.empty()==false){
+        int curr=q.front();
+        q.pop();
+        for(int adj: graph[curr]){
+            if(visited[adj]==false){
+                distance[adj]=distance[curr]+1;
+                q.push(adj);
+                visited[adj]=true;
+            }
+            
+        }
+    }
+    
+    
+    for(int ele: distance){
+        cout<<ele<<" ";
+    }
+    
+    
+}
+
+
+
+int main() {
+	// your code goes here
+	int n;
+	cin>>n;
+	int m;
+	cin>>m;
+	
+	vector<vector<int>> graph(n);
+	
+	for(int i=0;i<m;i++){
+	    int u,v;
+	    cin>>u;
+	    cin>>v;
+	    graph[u].push_back(v);
+	    graph[v].push_back(u);
+	    
+	}
+	shortest_path_unweighted(graph,0);
+
+}

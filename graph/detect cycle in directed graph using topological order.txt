@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+bool topological_order_cycle_detect(vector<vector<int>>& graph){
+    
+    int n=graph.size();
+    vector<int> inorder(n,0);
+    
+    for(int i=0;i<n;i++){
+        for(int adj: graph[i]){
+            inorder[adj]+=1;
+        }
+    }
+    queue<int> q;
+    for(int i=0;i<n;i++){
+        if(inorder[i]==0){
+            q.push(i);
+        }
+    }
+    
+    int count=0;
+    
+    while(q.empty()==false){
+        int curr=q.front();
+        q.pop();
+        //cout<<curr<<" ";
+        count++;
+        for(int adj: graph[curr]){
+            inorder[adj]-=1;
+            if(inorder[adj]==0){
+                q.push(adj);
+            }
+        }
+    }
+    return count!=n;
+    
+    
+}
+
+
+
+
+int main() {
+	// your code goes here
+	int n,m;
+	cin>>n;
+	cin>>m;
+	
+	vector<vector<int>> graph(n);
+	for(int i=0;i<m;i++){
+	    int u,v;
+	    cin>>u>>v;
+	    graph[u].push_back(v);
+	}
+	
+	cout<<topological_order_cycle_detect(graph);
+	
+	return 0;
+	
+
+}

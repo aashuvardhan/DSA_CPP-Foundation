@@ -1,0 +1,76 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+void dijkastra_rec(vector<vector<pair<int,int>>>& graph,vector<bool>& visited, vector<int>& distance, priority_queue<pair<int,int>>& pq,int source){
+    
+    
+    visited[source]=true;
+    for(auto adj: graph[source]){
+        int v=adj.first;
+        int w=adj.second;
+        if(visited[v]==false){
+            if(distance[v]>(distance[source]+w)){
+                distance[v]=distance[source]+w;
+                pq.push({-distance[v],v});
+            }
+        }
+    }
+    
+    while(pq.empty()==false){
+        auto ele=pq.top();
+        int dist=-(ele.first);
+        int v=ele.second;
+        pq.pop();
+        if(visited[v]==true){
+            continue;
+        }else{
+            dijkastra_rec(graph,visited,distance,pq,v);
+            break;
+        }
+    }
+    
+}
+
+
+
+
+void dijkastra(vector<vector<pair<int,int>>>& graph){
+    int n=graph.size();
+    vector<bool> visited(n,false);
+    
+    int source=0;
+    vector<int> distance(n,INT_MAX);
+    distance[source]=0;
+    
+    priority_queue<pair<int,int>> pq;
+    
+    dijkastra_rec(graph,visited,distance,pq,source);
+    
+    for(int ele: distance){
+        cout<<ele<<" ";
+    }
+    
+    
+}
+
+
+int main() {
+	// your code goes here
+	int n,m;
+	cin>>n>>m;
+	
+	vector<vector<pair<int,int>>> graph(n);
+	
+	for(int i=0;i<m;i++){
+	    int u,v,w;
+	    cin>>u>>v>>w;
+	    graph[u].push_back({v,w});
+	    graph[v].push_back({u,w});
+	}
+	
+	dijkastra(graph);
+	
+	
+
+}

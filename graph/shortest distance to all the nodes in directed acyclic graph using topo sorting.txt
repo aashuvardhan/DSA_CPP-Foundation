@@ -1,0 +1,93 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+void shortest_distance_in_DAG(vector<vector<pair<int,int>>>& graph){
+    
+    //step1 :- find topological order
+    int n=graph.size();
+    vector<int> inorder(n,0);
+    for(int i=0;i<n;i++){
+        for(auto adj: graph[i]){
+            int v=adj.first;
+            inorder[v]+=1;
+        }
+    }
+    
+    queue<int> q;
+    
+    for(int i=0;i<n;i++){
+        if(inorder[i]==0){
+            q.push(i);
+        }    
+    }
+    
+    vector<int> topo_order;
+    
+    while(q.empty()==false){
+        int curr=q.front();
+        q.pop();
+        topo_order.push_back(curr);
+        for(auto adj: graph[curr]){
+            int v=adj.first;
+            inorder[v]-=1;
+            if(inorder[v]==0){
+                q.push(v);
+            }
+        }
+    }
+    
+    
+    
+    
+    //step2- using this topo order traverse the adj and minimise the distance.
+    
+    vector<int> distance(n,INT_MAX);
+    int source=0;
+    distance[source]=0;
+    for(int i=0;i<n;i++){
+        int ele=topo_order[i];
+        for(auto adj: graph[ele]){
+            int v=adj.first;
+            int w=adj.second;
+            if(distance[v]>(distance[ele]+w)){
+                distance[v]=distance[ele]+w;
+            }
+        }
+    }
+    
+    for(int ele: distance){
+        cout<<ele<<" ";
+    }
+    
+    
+    
+    
+    
+    
+}
+
+
+
+int main() {
+	// your code goes here
+	int n,m;
+	cin>>n;
+	cin>>m;
+	
+	vector<vector<pair<int,int>>> graph(n);
+	for(int i=0;i<m;i++){
+	    int u,v,w;
+	    cin>>u>>v>>w;
+	    graph[u].push_back({v,w});
+	}
+	
+	
+	shortest_distance_in_DAG(graph);
+	
+	
+	
+	return 0;
+	
+
+}

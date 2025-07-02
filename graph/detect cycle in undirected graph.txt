@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+bool detect_cycle_und(vector<vector<int>>& graph,vector<bool>& visited,int source,int parent){
+    visited[source]=true;
+    
+    for(int adj: graph[source]){
+        if(visited[adj]==false){
+            if(detect_cycle_und(graph,visited,adj,source)==true){
+                return true;
+            }
+        }else{
+                if(adj!=parent){
+                    return true;
+                }
+            }
+        }
+    return false;
+    
+    
+}
+
+
+
+
+int main() {
+	// your code goes here
+	int n,m;
+	cin>>n;
+	cin>>m;
+	
+	vector<vector<int>> graph(n);
+	for(int i=0;i<m;i++){
+	    int u,v;
+	    cin>>u>>v;
+	    graph[u].push_back(v);
+	    graph[v].push_back(u);
+	}
+	
+	vector<bool> visited(graph.size(),false);
+	
+	cout<<detect_cycle_und(graph,visited,0,-1);
+	
+
+}

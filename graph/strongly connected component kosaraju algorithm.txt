@@ -1,0 +1,95 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+void edge_reversed_traversal_rec(vector<vector<int>>& dummy_graph, vector<bool>& visited,int source){
+    
+    visited[source]=true;
+    cout<<source<<" ";
+    for(int adj: dummy_graph[source]){
+        if(visited[adj]==false){
+            edge_reversed_traversal_rec(dummy_graph,visited,adj);
+        }
+    }
+}
+
+
+
+
+void edge_reversal(vector<vector<int>>& graph,vector<vector<int>>& dummy_graph){
+    int n=graph.size();
+    for(int i=0;i<n;i++){
+        for(int adj: graph[i]){
+            dummy_graph[adj].push_back(i);
+        }
+    }
+}
+
+
+
+void strongly_connected_component_rec(vector<vector<int>>& graph,vector<bool> visited,stack<int>& st,int source){
+    visited[source]=true;
+    for(int adj: graph[source]){
+        if(visited[adj]==false){
+            strongly_connected_component_rec(graph,visited,st,adj);
+        }
+    }
+    st.push(source);
+    
+}
+
+
+void strongly_connected_component(vector<vector<int>>& graph){
+    
+    //step 1 find the finish time order
+    int n=graph.size();
+    vector<bool> visited(n,false);
+    stack<int> st;
+    
+    int source=0;
+    strongly_connected_component_rec(graph,visited,st,source);
+    
+    vector<int> finish_time_order;
+    while(st.empty()==false){
+        finish_time_order.push_back(st.top());
+        st.pop();
+    }
+    
+    
+    
+    
+    //step 2 reverse the edges.
+    vector<vector<int>> dummy_graph(n);
+    edge_reversal(graph,dummy_graph);
+    
+    
+    //step 3 traverse the edge reversed graph in finish_time_order
+    
+    vector<bool> new_visited(n,false);
+    
+    for(int ele: finish_time_order){
+        if(new_visited[ele]==false){
+            edge_reversed_traversal_rec(dummy_graph,new_visited,ele);
+            cout<<endl;
+        }
+    }
+    
+}
+
+
+int main() {
+	// your code goes here
+	int n,m;
+	cin>>n>>m;
+	
+	vector<vector<int>> graph(n);
+	for(int i=0;i<m;i++){
+	    int u,v;
+	    cin>>u>>v;
+	    graph[u].push_back(v);
+	}
+	
+	
+	strongly_connected_component(graph);
+	
+}

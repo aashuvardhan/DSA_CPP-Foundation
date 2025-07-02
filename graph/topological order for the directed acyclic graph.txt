@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+void topological_order(vector<vector<int>>& graph){
+    
+    int n=graph.size();
+    vector<int> inorder(n,0);
+    
+    for(int i=0;i<n;i++){
+        for(int adj: graph[i]){
+            inorder[adj]+=1;
+        }
+    }
+    queue<int> q;
+    for(int i=0;i<n;i++){
+        if(inorder[i]==0){
+            q.push(i);
+        }
+    }
+    while(q.empty()==false){
+        int curr=q.front();
+        q.pop();
+        cout<<curr<<" ";
+        for(int adj: graph[curr]){
+            inorder[adj]-=1;
+            if(inorder[adj]==0){
+                q.push(adj);
+            }
+        }
+    }
+    
+    
+}
+
+
+
+
+int main() {
+	// your code goes here
+	int n,m;
+	cin>>n;
+	cin>>m;
+	
+	vector<vector<int>> graph(n);
+	for(int i=0;i<m;i++){
+	    int u,v;
+	    cin>>u>>v;
+	    graph[u].push_back(v);
+	}
+	
+	topological_order(graph);
+	
+	
+	
+
+}

@@ -1,0 +1,70 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+void prims_rec(vector<vector<pair<int,int>>>& graph, vector<bool>& visited, priority_queue<pair<int,int>>& pq,int source,int* res){
+    visited[source]=true;
+    
+    for(auto adj: graph[source]){
+        int v=adj.first;
+        int w=adj.second;
+        if(visited[v]==false){
+            pq.push({-w,v});
+        }
+    }
+    while(pq.empty()==false){
+        auto ele=pq.top();
+        int w=-(ele.first);
+        int v=ele.second;
+        pq.pop();
+        if(visited[v]==true){
+            continue;
+        }else{
+            *res=*res+w;
+            prims_rec(graph,visited,pq,v,res);
+            break;
+        }
+    }
+    
+    
+    
+    
+    
+}
+
+
+void prims(vector<vector<pair<int,int>>>& graph){
+    int n=graph.size();
+    vector<bool> visited(n,false);
+    priority_queue<pair<int,int>> pq;
+    
+    int start=0;
+    int res=0;
+    
+    prims_rec(graph,visited,pq,start,&res);
+    cout<<res<<endl;
+    
+    
+}
+
+
+
+
+int main() {
+	// your code goes here
+	int n,m;
+	cin>>n>>m;
+	
+	vector<vector<pair<int,int>>> graph(n);
+	
+	for(int i=0;i<m;i++){
+	    int u,v,w;
+	    cin>>u>>v>>w;
+	    graph[u].push_back({v,w});
+	    graph[v].push_back({u,w});
+	}
+	
+	
+	prims(graph);
+
+}
