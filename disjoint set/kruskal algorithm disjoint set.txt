@@ -1,0 +1,83 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int find(vector<int>& parent,int x){
+    if(parent[x]==x){
+        return x;
+    }else{
+        return find(parent,parent[x]);
+    }
+}
+
+
+void unions_by_rank(vector<int>& parent,vector<int>& rank, int x,int y){
+    int x_rep=find(parent,x);
+    int y_rep=find(parent,y);
+    
+    if(x_rep==y_rep){
+        return;
+    }
+    if(rank[x_rep]==rank[y_rep]){
+        parent[y_rep]=x_rep;
+        rank[x_rep]++;
+    }else if(rank[x_rep]>rank[y_rep]){
+        parent[y_rep]=x_rep;
+    }else{
+        parent[x_rep]=y_rep;
+    }
+    
+}
+
+
+
+
+int main() {
+	// your code goes here
+	int n,m;
+	cin>>n>>m;
+	
+	priority_queue<vector<int>> pq;
+	
+	
+	for(int i=0;i<m;i++){
+	    int u,v,w;
+	    cin>>u>>v>>w;
+	    
+	    pq.push({-w,u,v});
+	    
+	}
+	
+	
+	// implement the disjoint set find and union by rank method
+	vector<int> parent(n);
+	vector<int> rank(n,0);
+	
+	for(int i=0;i<n;i++){
+	    parent[i]=i;
+	}
+	
+	int res=0;
+	
+	while(pq.empty()==false){
+	    vector<int> curr=pq.top();
+	    int w=-curr[0];
+	    int u=curr[1];
+	    int v=curr[2];
+	    pq.pop();
+	    
+	    
+	    int x=find(parent,u);
+	    int y=find(parent,v);
+	    
+	    if(x!=y){
+	        res+=w;
+	        unions_by_rank(parent,rank,u,v);
+	    }
+	    
+	}
+	
+	cout<<res<<endl;
+	
+
+}

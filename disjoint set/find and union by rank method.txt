@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int find(vector<int>& parent,int x){
+    if(parent[x]==x){
+        return x;
+    }else{
+        return find(parent,parent[x]);
+    }
+}
+
+
+void unions(vector<int>& parent,vector<int>& rank,int x,int y){
+    int x_rep=find(parent,x);
+    int y_rep=find(parent,y);
+    
+    if(x_rep==y_rep){
+        return;
+    }
+    if(rank[x_rep]==rank[y_rep]){
+        parent[y_rep]=x_rep;
+        rank[x_rep]++;
+    }else if(rank[x_rep]>rank[y_rep]){
+        parent[y_rep]=x_rep;
+    }else{
+        parent[x_rep]=y_rep;
+    }
+}
+
+
+
+int main() {
+	// your code goes here
+	int n=5;
+	vector<int> parent(n);
+	for(int i=0;i<n;i++){
+	    parent[i]=i;
+	}
+	
+	vector<int> rank(n,0);
+	
+	
+	cout<<find(parent,4)<<endl;
+	
+	unions(parent,rank,1,3);
+	
+	cout<<find(parent,1)<<endl;
+	
+	unions(parent,rank,3,4);
+	
+	cout<<find(parent,4)<<endl;
+	
+	
+
+}
