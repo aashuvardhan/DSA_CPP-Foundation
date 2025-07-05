@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isPalindrome(string s,int start,int end){
+    if(start>end){
+        return false;
+    }
+    
+    
+    while(start<=end){
+        if(s[start]==s[end]){
+            start++;
+            end--;
+        }else{
+            return false;
+        }
+    }
+    return true;
+    
+}
+
+
+
+void palindrome_partition(vector<vector<string>>& res,vector<string>& path,string s,int index){
+    
+    if(index==s.size()){
+        res.push_back(path);
+        return;
+    }
+    
+    for(int i=index;i<s.size();i++){
+        if(isPalindrome(s,index,i)){
+            path.push_back(s.substr(index,(i-index+1)));
+            palindrome_partition(res,path,s,i+1);
+            path.pop_back();
+        }
+    }
+    
+    
+}
+
+
+
+int main() {
+	// your code goes here
+	string s="aabb";
+	vector<vector<string>> res;
+	vector<string> path;
+	
+	palindrome_partition(res,path,s,0);
+	
+	for(int i=0;i<res.size();i++){
+	    for(string ele: res[i]){
+	        cout<<ele<<" | ";
+	    }
+	    cout<<endl;
+	}
+	
+	
+}
