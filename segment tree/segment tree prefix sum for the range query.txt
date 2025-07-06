@@ -1,0 +1,92 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+void update_query(vector<int>& tree,int start,int end,int index,int diff,int pos){
+
+    if(pos<start or pos>end){
+        return;
+    }
+    tree[index]=tree[index]+diff;
+    
+    
+    
+    if(end>start){
+        int mid=(start+end)/2;
+        
+        update_query(tree,start,mid,2*index+1,diff,pos);
+        
+        update_query(tree,mid+1,end,2*index+2,diff,pos);
+        
+    }
+    
+}
+
+
+
+int range_query_get_sum(vector<int>& tree,int qstart,int qend,int start,int end,int index){
+    
+    if(end<qstart or start>qend){
+        return 0;
+    }
+    if(qstart<=start and qend>=end){
+        return tree[index];
+    }
+    int mid=(start+end)/2;
+    return range_query_get_sum(tree,qstart,qend,start,mid,2*index+1)+
+		range_query_get_sum(tree,qstart,qend,mid+1,end,2*index+2);
+    
+}
+
+
+
+int construct_segment_tree(vector<int>& arr,vector<int>& tree, int start,int end,int index){
+    
+    if(start==end){
+        tree[index]=arr[start];
+        return arr[start];
+    }
+    
+    int mid=(start+end)/2;
+    tree[index]=construct_segment_tree(arr,tree,start,mid,2*index+1)+
+                construct_segment_tree(arr,tree,mid+1,end,2*index+2);
+                
+    return tree[index];
+    
+    
+}
+
+
+
+int main() {
+	// your code goes here
+	vector<int> arr={10,20,30,40};
+	int n=arr.size();
+	vector<int> tree(4*n,0);
+	
+	construct_segment_tree(arr,tree,0,n-1,0);
+	
+	for(auto ele: tree){
+	    cout<<ele<<" ";
+	}
+	cout<<endl;
+	
+	int val=range_query_get_sum(tree,0,2,0,n-1,0);
+	cout<<val<<endl;
+	
+	
+	//updation
+	int index=1;
+	int new_val=25;
+	int diff=new_val-arr[index];
+	
+	
+	update_query(tree,0,n-1,0,diff,index);
+	arr[index]=new_val;
+	
+	for(auto ele: tree){
+	    cout<<ele<<" ";
+	}
+	cout<<endl;
+	
+}
