@@ -7,6 +7,7 @@ void update_query(vector<int>& tree,int start,int end,int index,int new_val,int 
     if(pos<start or pos>end){
         return;
     }
+    
     if(start==end){
         tree[index]=new_val;
         return;
@@ -17,7 +18,7 @@ void update_query(vector<int>& tree,int start,int end,int index,int new_val,int 
         }else{
             update_query(tree,mid+1,end,2*index+2,new_val,pos);
         }
-        tree[index]=tree[2*index+1]+tree[2*index+2];
+        tree[index]=max(tree[2*index+1],tree[2*index+2]);
     }
     
     
@@ -25,17 +26,17 @@ void update_query(vector<int>& tree,int start,int end,int index,int new_val,int 
 
 
 
-int range_query_get_sum(vector<int>& tree,int qstart,int qend,int start,int end,int index){
+int range_query_get_max(vector<int>& tree,int qstart,int qend,int start,int end,int index){
     
     if(end<qstart or start>qend){
-        return 0;
+        return INT_MIN;
     }
     if(qstart<=start and qend>=end){
         return tree[index];
     }
     int mid=(start+end)/2;
-    return range_query_get_sum(tree,qstart,qend,start,mid,2*index+1)+
-		range_query_get_sum(tree,qstart,qend,mid+1,end,2*index+2);
+    return max(range_query_get_max(tree,qstart,qend,start,mid,2*index+1),
+		range_query_get_max(tree,qstart,qend,mid+1,end,2*index+2));
     
 }
 
@@ -52,7 +53,7 @@ void construct_segment_tree(vector<int>& arr,vector<int>& tree, int start,int en
     construct_segment_tree(arr,tree,start,mid,2*index+1);
     construct_segment_tree(arr,tree,mid+1,end,2*index+2);
                 
-    tree[index]=tree[2*index+1]+tree[2*index+2];
+    tree[index]=max(tree[2*index+1],tree[2*index+2]);
     
     
 }
@@ -72,19 +73,32 @@ int main() {
 	}
 	cout<<endl;
 	
-	
-	int val=range_query_get_sum(tree,0,2,0,n-1,0);
+	int val=range_query_get_max(tree,0,2,0,n-1,0);
 	cout<<val<<endl;
 	
 	
 	//updation
-	int index=1;
-	int new_val=25;
+	int pos=1;
+	int new_val=80;
 	
 	
 	
-	update_query(tree,0,n-1,0,new_val,index);
-	arr[index]=new_val;
+	update_query(tree,0,n-1,0,new_val,pos);
+	arr[pos]=new_val;
+	
+	for(auto ele: tree){
+	    cout<<ele<<" ";
+	}
+	cout<<endl;
+	
+	
+	pos=1;
+	new_val=5;
+	
+	
+	
+	update_query(tree,0,n-1,0,new_val,pos);
+	arr[pos]=new_val;
 	
 	for(auto ele: tree){
 	    cout<<ele<<" ";
