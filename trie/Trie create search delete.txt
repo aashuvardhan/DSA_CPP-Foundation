@@ -1,0 +1,119 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct TrieNode{
+    TrieNode* child[26];
+    bool isEnd;
+    TrieNode(){
+        isEnd=false;
+        for(int i=0;i<26;i++){
+            child[i]=NULL;
+        }
+    }
+};
+
+bool isEmpty(TrieNode* root){
+    for(int i=0;i<26;i++){
+        if(root->child[i]!=NULL){
+            return false;
+        }
+    }
+    return true;
+}
+
+
+TrieNode* delete_string(TrieNode* root,string str,int pos){
+    
+    if(root==NULL){
+        return NULL;
+    }
+    if(pos==str.size()){
+        root->isEnd=false;
+        
+        if(isEmpty(root)==true){
+            delete(root);
+            root=NULL;
+        }
+        return root;
+        
+    }
+    
+    int index=str[pos]-'a';
+    root->child[index]=delete_string(root->child[index],str,pos+1);
+    
+    if(isEmpty(root) and root->isEnd==false){
+        delete(root);
+        root=NULL;
+    }
+    return root;
+}
+
+
+
+
+bool search(TrieNode* root,string str){
+    
+    TrieNode* curr=root;
+    
+    for(int i=0;i<str.size();i++){
+        int index=str[i]-'a';
+        if(curr->child[index]==NULL){
+            return false;
+        }
+        curr=curr->child[index];
+    }
+    if(curr->isEnd==false){
+        return false;
+    }else{
+        return true;
+    }
+}
+
+
+
+void insert(TrieNode* root,string str){
+    
+    TrieNode* curr=root;
+    
+    for(int i=0;i<str.size();i++){
+        int index=str[i]-'a';
+        if(curr->child[index]==NULL){
+            curr->child[index]=new TrieNode();
+        }
+        curr=curr->child[index];
+    }
+    curr->isEnd=true;
+}
+
+
+
+
+int main() {
+	// your code goes here
+	
+	
+	TrieNode* root=new TrieNode();
+	insert(root,"bad");
+	insert(root,"bat");
+	insert(root,"geek");
+	insert(root,"geeks");
+	insert(root,"cat");
+	insert(root,"cut");
+	insert(root,"zoo");
+	
+	/*
+	cout<<search(root,"bad")<<endl;
+	cout<<search(root,"bat")<<endl;
+	cout<<search(root,"geekz")<<endl;
+	cout<<search(root,"geeks")<<endl;
+	cout<<search(root,"cat")<<endl;
+	cout<<search(root,"cuts")<<endl;
+	cout<<search(root,"zoo")<<endl;
+	*/
+	
+	delete_string(root,"bat",0);
+	cout<<search(root,"bat")<<endl;
+	cout<<search(root,"bad")<<endl;
+	
+	
+}
