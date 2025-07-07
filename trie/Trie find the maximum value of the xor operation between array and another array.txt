@@ -1,0 +1,67 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct TrieNode{
+    TrieNode* child[2];
+    TrieNode(){
+        child[0]=NULL;
+        child[1]=NULL;
+    }
+};
+
+
+int find_maximum_xor_with_X(TrieNode* root,int x){
+    TrieNode* curr=root;
+    
+    int res=0;
+    
+    for(int i=31;i>=0;i--){
+        int bit=(x>>i) & 1;
+        int opp=1-bit;
+        if(curr->child[opp]!=NULL){
+            curr=curr->child[opp];
+            res=res+(1<<i);
+        }else{
+            curr=curr->child[bit];
+        }
+    }
+    
+    return res;
+    
+}
+
+
+void insert(TrieNode* root,int ele){
+    
+    TrieNode* curr=root;
+    for(int i=31;i>=0;i--){
+        int bit=(ele>>i) & 1;
+        if(curr->child[bit]==NULL){
+            curr->child[bit]=new TrieNode();
+        }
+        curr=curr->child[bit];
+    }
+}
+
+
+
+int main() {
+	// your code goes here
+	vector<int> v1={1,2,3};
+	vector<int> v2={8,9,10};
+	
+	TrieNode* root=new TrieNode();
+	
+	for(auto ele: v1){
+	    insert(root,ele);
+	}
+	
+	
+	int res=0;
+	for(auto ele: v2){
+	    res=max(res,find_maximum_xor_with_X(root,ele));
+	}
+	
+	cout<<res<<endl;
+
+}

@@ -1,0 +1,103 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct TrieNode{
+    bool isEnd;
+    TrieNode* child[26];
+    TrieNode(){
+        isEnd=false;
+        for(int i=0;i<26;i++){
+            child[i]=NULL;
+        }
+    }
+};
+
+
+bool longest_word_all_prefixes(TrieNode* root,string str){
+    
+    TrieNode* curr=root;
+    for(int i=0;i<str.size();i++){
+        int index=str[i]-'a';
+        if(curr->child[index]==NULL){
+            return false;
+        }else{
+            if(curr->child[index]->isEnd==false){
+                return false;
+            }
+        }
+        curr=curr->child[index];
+    }
+    return true;
+    
+    
+}
+
+
+
+
+void insert(TrieNode* root, string str){
+    
+    TrieNode* curr=root;
+    for(int i=0;i<str.size();i++){
+        int index=str[i]-'a';
+        if(curr->child[index]==NULL){
+            curr->child[index]=new TrieNode();
+        }
+        curr=curr->child[index];
+    }
+    curr->isEnd=true;
+    
+}
+
+
+
+int main() {
+	// your code goes here
+	vector<string> v={"n","ni","nin","ninj","ninja","ninga","ning"};
+    
+    //trie creation using all the strings.
+    TrieNode* root=new TrieNode();
+    
+    for(string ele: v){
+        insert(root,ele);
+    }
+    
+    vector<string> res;
+    
+    
+    for(string ele: v){
+        if(longest_word_all_prefixes(root,ele)){
+            if(res.size()==0){
+                res.push_back(ele);
+                
+            }else{
+                while(res.size()>0){
+                    auto it=res.end()-1;
+                    if((*it).size()<ele.size()){
+                        res.pop_back();
+                    }else{
+                        break;
+                    }
+                }
+                if(res.size()>0){
+                    int n=res.size();
+                    if(res[n-1].size()==ele.size()){
+                        res.push_back(ele);
+                    }
+                    
+                }
+                
+            }
+            
+        }
+    }
+    
+    for(auto str: res){
+        cout<<str<<endl;
+    }
+    
+    
+    
+    	
+
+}

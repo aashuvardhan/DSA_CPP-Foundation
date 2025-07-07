@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+struct TrieNode{
+    TrieNode* child[26];
+    TrieNode(){
+        for(int i=0;i<26;i++){
+            child[i]=NULL;
+        }
+    }
+};
+
+
+void insert(TrieNode* root,string str,int* res ){
+    TrieNode* curr=root;
+    
+    for(int i=0;i<str.size();i++){
+        int index=str[i]-'a';
+        if(curr->child[index]==NULL){
+            *res=*res+1;
+            curr->child[index]=new TrieNode();
+        }
+        curr=curr->child[index];
+    }
+}
+
+
+
+int main() {
+	// your code goes here
+	string str="abab";
+	int res=1;
+	int n=str.size();
+	
+	TrieNode* root=new TrieNode();
+	
+	for(int i=0;i<str.size();i++){
+	    string substring=str.substr(i,n-i);
+	    insert(root,substring,&res);
+	}
+	
+	
+	cout<<res<<endl;
+
+}
