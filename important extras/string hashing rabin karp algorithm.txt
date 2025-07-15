@@ -1,0 +1,84 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+// this program uses the string hashing along with sliding window technique.
+
+long long computeHash(string s){
+    long long mod=1000000007;
+    
+    long long hash=0;
+    int n=s.size();
+    
+    long long pwr=1;
+    
+    for(int i=0;i<n;i++){
+        hash=(hash+((s[i]-'a'+1)*pwr)%mod)%mod; 
+        pwr=(pwr*31)%mod;
+    }
+    return hash;
+    
+    
+}
+
+
+void rabinKarp(string s,string pat){
+    
+    long long mod=1000000007;
+    
+    long long patHash=computeHash(pat);
+    
+    int n1=pat.size();
+    int n2=s.size();
+    
+    long long hash=computeHash(s.substr(0,n1));
+    
+    if(hash==patHash){
+        cout<<0<<endl;
+    }
+    
+    
+    int left=0;
+    int right=n1;
+    
+    vector<long long> power={1};
+    long long pwr=1;
+    for(int i=1;i<n2;i++){
+        pwr=(pwr*31)%mod;
+        power.push_back(pwr);
+    }
+    
+    
+    
+    while(right<n2){
+        
+        hash=(hash+((s[right]-'a'+1)*power[right])%mod)%mod;
+        
+        hash=((hash-((s[left]-'a'+1)*power[left])%mod+mod)%mod+mod)%mod;
+        
+        left++;
+        right++;
+        
+        patHash=(patHash*31)%mod;
+        
+        //cout<<"####"<<hash<<"::::"<<patHash<<endl;
+        
+        if(hash==patHash){
+            cout<<left<<endl;
+        }
+        
+        
+    }
+    
+    
+}
+
+
+
+int main() {
+	// your code goes here
+	string str="aabbaabaabaab";
+	string pat="aa";
+	rabinKarp(str,pat);
+	
+	
+}

@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	//create hash value for all the possible substring and insert into set.
+	string str="abab";
+	set<int> st;
+	long long mod=1e9+7;
+	
+	for(int i=0;i<str.size();i++){
+	    string sub="";
+	    long long pr=1;
+	    long long hash=0;
+	    
+	    for(int j=i;j<str.size();j++){
+	        sub+=str[j];
+	        hash=(hash+((str[j]-'a'+1)*pr)%mod)%mod;
+	        pr=(pr*31)%mod;
+	        st.insert(hash);
+	    }
+	    
+	    
+	}
+	cout<<st.size()+1<<endl;
+
+}
