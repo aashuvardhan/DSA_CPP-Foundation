@@ -16,11 +16,13 @@ int main() {
 	    if(prefix_sum==sum){
 	        res=i+1;
 	    }
+	    else{
+	    	if(umap.find(prefix_sum-sum)!=umap.end()){
+	        	res=max(res,i-umap[prefix_sum-sum]);
+	    	}
+	    }
 	    if(umap.find(prefix_sum)==umap.end()){
 	        umap[prefix_sum]=i;
-	    }
-	    if(umap.find(prefix_sum-sum)!=umap.end()){
-	        res=max(res,i-umap[prefix_sum-sum]);
 	    }
 	    
 	}
