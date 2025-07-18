@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int knapsack_recur(vector<int>& weight,vector<int>& value,int w,int n){
+    if(n==0 or w==0){
+        return 0;
+    }
+    
+    if(weight[n-1]<=w){
+        return max(value[n-1]+knapsack_recur(weight,value,w-weight[n-1],n-1),knapsack_recur(weight,value,w,n-1));
+    }else{
+        return knapsack_recur(weight,value,w,n-1);
+    }
+}
+
+
+
+int main() {
+	// your code goes here
+	vector<int> weight={4,5,1};
+	vector<int> value={1,2,3};
+	int w=4;
+	int n=3;
+	
+	cout<<knapsack_recur(weight,value,w,n);
+
+}

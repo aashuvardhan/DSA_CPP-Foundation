@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	vector<int> v={1,6,11,5};
+	int sum=0;
+	for(auto ele: v){
+	    sum+=ele;
+	}
+	int n=v.size();
+	vector<vector<bool>> result(n+1,vector<bool>(sum+1,false));
+	
+	for(int i=0;i<=n;i++){
+	    result[i][0]=true;
+	}
+	
+	for(int i=1;i<=n;i++){
+	    for(int j=1;j<=sum;j++){
+	        
+	        if(v[i-1]<=j){
+	            result[i][j]=result[i-1][j-v[i-1]] or result[i-1][j];
+	        }else{
+	            result[i][j]=result[i-1][j];
+	        }
+	        
+	    }
+	}
+	
+	int half=sum/2;
+	
+	int mini=INT_MAX;
+	
+	for(int i=0;i<=half;i++){
+	    if(result[n][i]){
+	        mini=min(mini,sum-(2*i));
+	    }
+	}
+	cout<<mini;
+	
+	
+
+}

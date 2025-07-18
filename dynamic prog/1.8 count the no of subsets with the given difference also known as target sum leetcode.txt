@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	vector<int> v={1,1,2,3};
+	int n=v.size();
+	int diff=1;
+	
+	int sum=0;
+	for(auto ele: v){
+	    sum+=ele;
+	}
+	
+	/*
+	s1+s2=sum
+	s1-s2=diff
+	-------------
+	2*s1=sum+diff
+	---------------
+	or s1=(sum+diff)/2
+	*/
+	
+	int new_sum=(sum+diff)/2;
+	
+	// we need to find how many times this new sum is possible using the array elements.
+	
+	vector<vector<int>> result(n+1,vector<int>(new_sum+1,-1));
+	
+	for(int i=0;i<=n;i++){
+	    result[i][0]=1;
+	}
+	
+	for(int j=1;j<=new_sum;j++){
+	    result[0][j]=0;
+	}
+	
+	
+	for(int i=1;i<=n;i++){
+	    for(int j=1;j<=new_sum;j++){
+	        
+	        if(v[i-1]<=j){
+	            result[i][j]=result[i-1][j-v[i-1]] + result[i-1][j];
+	        }else{
+	            result[i][j]=result[i-1][j];
+	        }
+	    }
+	}
+	
+	cout<<result[n][new_sum];
+	
+	
+	
+	
+	
+
+}
