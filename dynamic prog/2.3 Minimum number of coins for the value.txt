@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	vector<int> coins={1,2,3};
+	int value=5;
+	int n=coins.size();
+	
+	vector<int> tab(value+1,INT_MAX);
+	tab[0]=0;
+	int sub_res;
+	for(int i=1;i<=value;i++){
+	    for(int j=0;j<n;j++){
+	        
+	        if(coins[j]<=i){
+	            sub_res=tab[i-coins[j]];
+	            if(sub_res!=INT_MAX){
+	                tab[i]=min(tab[i],sub_res+1);
+	            }
+	        }
+	        
+	        
+	    }
+	}
+	cout<<tab[value];
+	
+
+}

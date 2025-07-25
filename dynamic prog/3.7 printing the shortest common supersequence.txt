@@ -1,0 +1,64 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	string str1="abcdaf";
+	string str2="acbcf";
+	int m=str1.size();
+	int n=str2.size();
+	
+	vector<vector<int>> tab(m+1,vector<int>(n+1,-1));
+	
+	for(int i=0;i<=m;i++){
+	    tab[i][0]=0;
+	}
+	for(int j=0;j<=n;j++){
+	    tab[0][j]=0;
+	}
+	
+	for(int i=1;i<=m;i++){
+	    for(int j=1;j<=n;j++){
+	        
+	        if(str1[i-1]==str2[j-1]){
+	            tab[i][j]=1+tab[i-1][j-1];
+	        }else{
+	            tab[i][j]=max(tab[i-1][j],tab[i][j-1]);
+	        }
+	        
+	    }
+	}
+	
+	
+	int x=m;
+	int y=n;
+	string s="";
+	while(x>0 and y>0){
+	    if(str1[x-1]==str2[y-1]){
+	        s+=str1[x-1];
+	        x--;
+	        y--;
+	    }else{
+	        if(tab[x][y-1]>=tab[x-1][y]){
+	            s+=str2[y-1];
+	            y--;
+	        }else{
+	            s+=str1[x-1];
+	            x--;
+	        }
+	    }
+	}
+	
+	while(x>0){
+	    s+=str1[x-1];
+	    x--;
+	}
+	while(y>0){
+	    s+=str2[y-1];
+	    y--;
+	}
+	
+	reverse(s.begin(),s.end());
+	cout<<s;
+
+}
