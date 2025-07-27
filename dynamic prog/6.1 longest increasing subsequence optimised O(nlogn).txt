@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int ceil_index(vector<int>& arr,int ele){
+    int low=0;
+    int high=arr.size()-1;
+    while(low<=high){
+        int mid=(low+high)/2;
+        if(arr[mid]<=ele){
+            low=mid+1;
+        }else{
+            high=mid-1;
+        }
+    }
+    return low;
+}
+
+
+
+int main() {
+	// your code goes here
+	vector<int> arr={3, 10, 2, 1, 20};
+	int n=arr.size();
+	
+	vector<int> tail_lis_arr={arr[0]};
+	int res=1;
+	
+	for(int i=1;i<n;i++){
+	    int index=ceil_index(tail_lis_arr,arr[i]);
+	    int m=tail_lis_arr.size();
+	    
+	    
+	    if(m==index){
+	        tail_lis_arr.push_back(arr[i]);
+	        res=res+1;
+	    }else{
+	        tail_lis_arr[index]=arr[i];
+	    }
+	    
+	}
+	cout<<res;
+	
+
+}

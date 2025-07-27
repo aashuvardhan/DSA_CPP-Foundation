@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int edit_distance(string s1,string s2,int n1,int n2,vector<vector<int>>& tab){
+    
+    if(n1==0){
+        return n2;
+    }
+    if(n2==0){
+        return n1;
+    }
+    if(tab[n1][n2]!=-1){
+        return tab[n1][n2];
+    }
+    
+    if(s1[n1-1]==s2[n2-1]){
+        tab[n1][n2]=edit_distance(s1,s2,n1-1,n2-1,tab);
+    }else{
+        tab[n1][n2]=1+min({edit_distance(s1,s2,n1-1,n2,tab),
+                            edit_distance(s1,s2,n1,n2-1,tab),
+                            edit_distance(s1,s2,n1-1,n2-1,tab)});
+    }
+    return tab[n1][n2];
+    
+    
+    
+}
+
+
+int main() {
+	// your code goes here
+	string str1="intention";
+	string str2="execution";
+	int n1=str1.size();
+	int n2=str2.size();
+	/* convert string1 to string2 using insert delete or replace opr.*/
+	
+	vector<vector<int>> tab(n1+1,vector<int>(n2+1,-1));
+	
+	cout<<edit_distance(str1,str2,n1,n2,tab);
+
+}

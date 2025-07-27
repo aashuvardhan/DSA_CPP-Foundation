@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	vector<int> arr={3, 10, 2, 1, 20};
+	int n=arr.size();
+	vector<int> lis(n,-1);
+	
+	for(int i=0;i<n;i++){
+	    lis[i]=1;
+	    for(int j=0;j<i;j++){
+	        if(arr[j]<arr[i]){
+	            lis[i]=max(lis[i],lis[j]+1);
+	        }
+	    }
+	}
+	for(auto ele : lis){
+	    cout<<ele<<" :: ";
+	}
+	cout<<endl;
+	
+	int res=INT_MIN;
+	for(int i=0;i<n;i++){
+	    res=max(res,lis[i]);
+	}
+	cout<<res;
+
+}

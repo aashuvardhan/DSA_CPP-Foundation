@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int solve(vector<int>& arr,int i,int j,vector<vector<int>>& tab){
+    
+    if(i>=j){
+        return 0;
+    }
+    if(tab[i][j]!=-1){
+        return tab[i][j];
+    }
+    int mini=INT_MAX;
+    for(int k=i;k<=j-1;k++){
+	    int tempans=solve(arr,i,k,tab)+solve(arr,k+1,j,tab)+(arr[i-1]*arr[k]*arr[j]);
+	    mini=min(mini,tempans);
+	}
+	tab[i][j]=mini;
+    return mini;
+    
+}
+
+
+int main() {
+	// your code goes here
+	vector<int> arr={40,20,30,10,30};
+	int n=arr.size();
+	vector<vector<int>> tab(n+1,vector<int>(n+1,-1));
+	
+	cout<<solve(arr,1,n-1,tab);
+	
+
+}

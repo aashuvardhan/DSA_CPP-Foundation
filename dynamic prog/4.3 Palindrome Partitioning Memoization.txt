@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool palindrome(string str,int i,int j){
+    
+    while(i<=j){
+        if(str[i]!=str[j]){
+            return false;
+        }else{
+            i++;
+            j--;
+        }
+        
+    }
+    return true;
+    
+}
+
+int solve(string str,int i,int j,vector<vector<int>>& tab){
+    
+    if(i>=j){
+        return 0;
+    }
+    if(palindrome(str,i,j)){
+        return 0;
+    }
+    
+    if(tab[i][j]!=-1){
+        return tab[i][j];
+    }
+    
+    int mini=INT_MAX;
+    for(int k=i;k<=j-1;k++){
+        if(palindrome(str,i,k)){
+            int tempans=1+solve(str,k+1,j,tab);
+            mini=min(mini,tempans);
+        }
+    }
+    tab[i][j]=mini;
+    return mini;
+    
+    
+}
+
+
+int main() {
+	// your code goes here
+	string str="abade";
+	int n=str.size();
+	
+	vector<vector<int>> tab(n+1,vector<int>(n+1,-1));
+	
+	cout<<solve(str,0,n-1,tab);
+	
+	
+	
+}
