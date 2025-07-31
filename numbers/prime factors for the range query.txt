@@ -12,7 +12,8 @@ int main() {
         if(v[i]==0){
             v[i]=i;
             for(int j=i*i;j<10000;j+=i){
-                v[j]=i;
+                if(v[j]==0)
+                    v[j]=i;
             }
         }
     }
