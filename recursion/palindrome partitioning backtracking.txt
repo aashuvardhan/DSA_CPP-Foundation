@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+//print every possible palindromic partitions possible with the given string
 bool isPalindrome(string s,int start,int end){
     if(start>end){
         return false;

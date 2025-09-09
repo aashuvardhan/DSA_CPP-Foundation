@@ -2,7 +2,7 @@
 using namespace std;
 
 
-long long power(long long base,long long n,int mod){
+long long power(long long base,long long n,long long mod){
     long long ans=1;
     while(n!=0){
         if(n%2==1){

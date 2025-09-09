@@ -53,7 +53,7 @@ void rabinKarp(string s,string pat){
         
         hash=(hash+((s[right]-'a'+1)*power[right])%mod)%mod;
         
-        hash=((hash-((s[left]-'a'+1)*power[left])%mod+mod)%mod+mod)%mod;
+        hash=((hash-((s[left]-'a'+1)*power[left])%mod+mod)%mod;
         
         left++;
         right++;

@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+//minimum number of partitions that we can make in the given string so that every substring is a palindrome.
 bool palindrome(string str,int i,int j){
     
     while(i<=j){
