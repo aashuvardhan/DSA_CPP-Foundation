@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	vector<int> v={5, 4, 5, 5, 6, 7, 8, 8, 8, 7, 6};
+	
+	int n=v.size();
+	int i=0;
+	int j=1;
+	int res=1;
+	
+	vector<int> currmin={0};
+	vector<int> currmax={0};
+	
+	while(j<n){
+	    
+	    while(currmin.size()!=0 and currmin[0]<i){
+	        currmin.erase(currmin.begin());
+	    }
+	    
+	    while(currmax.size()!=0 and currmax[0]<i){
+	        currmax.erase(currmax.begin());
+	    }
+	    
+	    while(currmin.size()!=0){
+	        int lastele=v[*(currmin.rbegin())];
+	        if(lastele>v[j]){
+	            currmin.pop_back();
+	        }else{
+	            break;
+	        }
+	    }
+	    currmin.push_back(j);
+	    
+	    while(currmax.size()!=0){
+	        int lastele=v[*(currmax.rbegin())];
+	        if(lastele<v[j]){
+	            currmax.pop_back();
+	        }else{
+	            break;
+	        }
+	    }
+	    
+	    currmax.push_back(j);
+	    
+	    if((v[currmax[0]]-v[currmin[0]])>1){
+	        i=max(currmax[0],currmin[0])+1;
+	    }else{
+	        res=max(res,j-i+1);
+	    }
+	    j+=1;
+	    
+	    
+	}
+	cout<<res;
+	
+
+}
