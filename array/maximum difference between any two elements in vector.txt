@@ -2,19 +2,17 @@
 using namespace std;
 
 
-int main() {
-	// your code goes here
+int main(){
     
     vector<int> v={2,3,10,6,4,8,1};
-    sort(v.begin(),v.end());
-    int res=-1;
-    int minval=v[0];
-    for(int i=1;i<v.size();i++){
-        res=max(res,v[i]-minval);
-        minval=min(minval,v[i]);
+    
+    int maxi=0;
+    int mini=INT_MAX;
+    for(int i=0;i<v.size();i++){
+        maxi=max(maxi,v[i]);
+        mini=min(mini,v[i]);
     }
-    cout<<res<<endl;
-    
-    
+    cout<<maxi-mini;
     
 }
+
