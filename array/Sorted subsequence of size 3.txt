@@ -1,0 +1,48 @@
+/*
+https://practice.geeksforgeeks.org/problems/sorted-subsequence-of-size-3/1?page=5&company[]=Amazon&category[]=Arrays&sortBy=submissions
+
+
+*/
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	
+	vector<int> v={1,2,1,1,3};
+	
+	vector<int> left(v.size()),right(v.size());
+	
+	int n=v.size();
+	
+	left[0]=v[0];
+	
+	for(int i=1;i<v.size();i++){
+	    left[i]=min(left[i-1],v[i]);
+	}
+	
+	right[n-1]=v[n-1];
+	
+	for(int j=n-2;j>=0;j--){
+	    right[j]=max(right[j+1],v[j]);
+	}
+	
+	int flag=0;
+	for(int i=1;i<n-1;i++){
+	    if(left[i]<v[i] and right[i]>v[i]){
+	        cout<<"Found";
+	        flag=1;
+	        break;
+	    }
+	}
+	if(flag==0){
+	    cout<<"Not found";
+	}
+	
+	
+
+}
