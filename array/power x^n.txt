@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+double power(int x,int pwr){
+    
+    
+    int result=1;
+    int base=x;
+    int n=(pwr<0)?-pwr:pwr;
+    
+    while(n>0){
+        
+        if(n%2==1){
+            result*=base;
+        }
+        base*=base;
+        
+        n/=2;
+        
+    }
+    
+    if(pwr<0){
+        return 1.0/result;
+    }else{
+        return result;
+    }
+    
+    
+    
+}
+
+
+int main() {
+	// your code goes here
+	
+	cout<<power(2,-10)<<endl;
+	cout<<power(3,5)<<endl;
+
+}

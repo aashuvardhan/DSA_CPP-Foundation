@@ -1,0 +1,49 @@
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	
+	vector<int> v={101, 758, 315, 730,472, 619, 460, 479};
+	vector<int> temp=v;
+	sort(temp.begin(),temp.end());
+	
+	int ans=0;
+	int init=-1;
+	
+	unordered_map<int,int> umap;
+	for(int i=0;i<v.size();i++){
+	    umap[v[i]]=i;
+	}
+	
+	
+	
+	for(int i=0;i<v.size();i++){
+	    
+	    if(v[i]!=temp[i]){
+	        ans++;
+	        
+	        init=v[i];
+	        
+	        
+	        v[i]=v[umap[temp[i]]];
+	        v[umap[temp[i]]]=init;
+	        
+	        umap[init]=umap[temp[i]];
+	        umap[temp[i]]=i;
+	        
+	    }
+	    
+	    
+	}
+	
+	cout<<ans<<endl;
+	for(auto ele: v){
+	    cout<<ele<<"  ";
+	}
+	
+	
+}

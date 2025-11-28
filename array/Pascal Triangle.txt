@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int combi(int n,int r){
+    
+    if(r>(n-r)){
+        r=n-r;
+    }
+    int res=1;
+    
+    for(int i=0;i<r;i++){
+        res=res*(n-i);
+        res=res/(i+1);
+    }
+    return res;
+    
+}
+
+
+int main() {
+	// your code goes here
+	
+	
+	int n;
+	cin>>n;
+	vector<vector<int>> lstmain;
+	
+	for(int i=0;i<n;i++){
+	    
+	    vector<int> lst;
+	    
+	    for(int j=0;j<=i;j++){
+	        lst.push_back(combi(i,j));
+	    }
+	    lstmain.push_back(lst);
+	}
+	
+	
+	for(auto ele: lstmain){
+	    
+	    for(auto item: ele){
+	        cout<<item<<"  ";
+	    }
+	    cout<<endl;
+	    
+	}
+	
+
+}

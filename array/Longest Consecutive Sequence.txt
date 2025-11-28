@@ -1,0 +1,48 @@
+/*
+'''
+Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
+
+You must write an algorithm that runs in O(n) time.
+
+Input: nums = [100,4,200,1,3,2]
+Output: 4
+Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
+
+'''
+
+
+
+*/
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	vector<int> v={100,4,200,1,3,2};
+	
+	unordered_set<int> st;
+	
+	for(auto ele: v){
+	    st.insert(ele);
+	}
+	
+	int res=0;
+	
+	for(auto ele: v){
+	    if(st.find(ele-1)==st.end()){
+	        
+	        int count=1;
+	        while(st.find(ele+count)!=st.end()){
+	            count++;
+	        }
+	        res=max(res,count);
+	        
+	    }
+	}
+	cout<<res;
+	
+	
+}
