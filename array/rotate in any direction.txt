@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+void left_rotate(vector<int> v,int d){
+    
+    int n=v.size();
+    int start=d%n;
+    for(int i=start;i<start+n;i++){
+        cout<<v[i%n]<<"  ";
+    }
+    cout<<endl;
+    
+}
+
+void right_rotate(vector<int> v,int d){
+    
+    int n=v.size();
+    d=d%n;
+    int start=n-d;
+    for(int i=start;i<start+n;i++){
+        cout<<v[i%n]<<"  ";
+    }
+    cout<<endl;
+}
+
+
+
+int main() {
+	// your code goes here
+	vector<int> v={1,2,3,4,5,6,7,8,9};
+	left_rotate(v,3);
+
+
+    right_rotate(v,3);
+}

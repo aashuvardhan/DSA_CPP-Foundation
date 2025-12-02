@@ -1,0 +1,51 @@
+/*
+'''
+Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, 
+and return an array of the non-overlapping intervals that cover all the intervals in the input.
+'''
+
+
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+bool comparator(pair<int,int> p1 , pair<int,int> p2){
+    if(p1.first<=p2.first){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
+
+int main() {
+	// your code goes here
+	
+	vector<pair<int,int>> v={{1,3},{2,6},{8,10},{15,18}};
+	
+	sort(v.begin(),v.end(),comparator);
+	
+	vector<pair<int,int>> lstmain;
+	lstmain.push_back(v[0]);
+	
+	for(int i=1;i<v.size();i++){
+	    auto itr=lstmain.end()-1;
+	    int first=itr->first;
+	    int second=itr->second;
+	    
+	    if(v[i].first>second){
+	        lstmain.push_back(v[i]);
+	    }else if(v[i].first<=second and v[i].first>=first){
+	        itr->second=v[i].second;
+	    }
+	}
+	
+	for(auto ele: lstmain){
+	    cout<<ele.first<<"   "<<ele.second<<endl;
+	}
+	
+
+}

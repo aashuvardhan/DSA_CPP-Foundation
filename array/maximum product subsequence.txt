@@ -1,0 +1,32 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	vector<int> v={2,3,-2,4};
+	int n=v.size();
+	
+	if(n==1){
+	    cout<<v[0];
+	}else{
+	    int global_max=v[0];
+	    int max_prod=v[0];
+	    int min_prod=v[0];
+	    
+	    for(int i=1;i<n;i++){
+	        
+	        int current_max=max_prod;
+	        int current_min=min_prod;
+	        
+	        max_prod=max(max_prod, max( v[i]*current_max, v[i]*current_min));
+	        min_prod=min(min_prod, min( v[i]*current_max, v[i]*current_min));
+	        
+	        global_max=max(global_max, max(max_prod,min_prod));
+	    }
+	    cout<<global_max;
+	    
+	}
+	
+
+}
