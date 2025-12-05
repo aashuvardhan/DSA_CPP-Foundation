@@ -1,0 +1,70 @@
+//https://practice.geeksforgeeks.org/problems/word-ladder/1?page=25&company[]=Amazon&sortBy=submissions
+
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int finder(vector<string>& wordlist,string startWord,string targetWord){
+    
+    int n=wordlist.size();
+	
+	unordered_map<string,int> umap;
+	for(auto ele: wordlist){
+	    umap[ele]=1;
+	}
+	
+	vector<pair<string,int>> queue;
+	queue.push_back({startWord,1});
+	
+	umap[startWord]=0;
+	
+	while(queue.size()!=0){
+	    auto ele=queue[0];
+	    queue.erase(queue.begin());
+	    string word=ele.first;
+	    int steps=ele.second;
+	    
+	    if(word==targetWord){
+	        return steps;
+	    }
+	    
+	    for(int i=0;i<word.size();i++){
+	        char origin=word[i];
+	        
+	        for(int j=97;j<123;j++){
+	            word[i]=(char)j;
+	            
+	            if(umap[word]==1){
+	                queue.push_back({word,steps+1});
+	                umap[word]=0;
+	            }
+	        }
+	        word[i]=origin;
+	    }
+	    
+	}
+	return -1;
+	
+	
+    
+}
+
+
+int main() {
+	// your code goes here
+	
+	vector<string> wordlist={"poon", "plee", "same", "poie","plea","plie","poin"};
+	string startWord = "toon";
+	string targetWord= "plea";
+	
+	int res=finder(wordlist,startWord,targetWord);
+	
+	cout<<res;
+	
+	
+	
+}

@@ -1,0 +1,64 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+struct Treenode{
+    int data;
+    Treenode* left;
+    Treenode* right;
+    
+    Treenode(int x){
+        data=x;
+        left=NULL;
+        right=NULL;
+    }
+};
+
+int res=-1;
+
+vector<int> postorder(Treenode* root){
+    if(root==NULL){
+        
+        return {0,INT_MIN,INT_MAX};
+    }
+    if(root->left==NULL and root->right==NULL){
+        res=1;
+        return {1,root->data,root->data};
+    }
+    
+    vector<int> left_value=postorder(root->left);
+    vector<int> right_value=postorder(root->right);
+    
+    if(root->data>left_value[1] and root->data< right_value[2]){
+        int total=left_value[0]+right_value[0]+1;
+        res=max(res,total);
+        return {total, right_value[2],left_value[1]};
+    }else{
+        return {0,INT_MAX,INT_MIN};
+    }
+}
+
+
+
+
+
+int main() {
+	// your code goes here
+	
+	
+	
+	Treenode* root=new Treenode(50);
+	root->left=new Treenode(30);
+    root->left->left=new Treenode(5);
+    root->left->right=new Treenode(20);
+    root->right=new Treenode(60);
+    root->right->right=new Treenode(70);
+    root->right->left=new Treenode(45);
+    root->right->right->right=new Treenode(80);
+    root->right->right->left=new Treenode(65);
+    
+    postorder(root);
+    
+    cout<<res;
+
+}

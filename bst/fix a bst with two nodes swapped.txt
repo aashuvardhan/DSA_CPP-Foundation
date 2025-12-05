@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+struct Treenode{
+    int data;
+    Treenode* left;
+    Treenode* right;
+    
+    Treenode(int x){
+        data=x;
+        left=NULL;
+        right=NULL;
+    }
+};
+
+
+Treenode* previous=NULL;
+Treenode* first=NULL;
+Treenode* second=NULL;
+
+void inorder(Treenode* root){
+    if(root==NULL){
+        return;
+    }
+    inorder(root->left);
+    if(previous!=NULL and root->data<previous->data){
+        if(first==NULL){
+            first=previous;
+            second=root;
+        }else{
+            second=root;
+        }
+    }
+    previous=root;
+    inorder(root->right);
+    
+}
+
+
+int main() {
+	// your code goes here
+	Treenode* root=new Treenode(20);
+    root->left=new Treenode(60);
+    root->left->left=new Treenode(4);
+    root->left->right=new Treenode(10);
+    root->right=new Treenode(80);
+    root->right->right=new Treenode(100);
+    root->right->left=new Treenode(8);
+    
+
+	
+	inorder(root);
+	cout<<first->data<<"  "<<second->data;
+	
+	int temp=first->data;
+	first->data=second->data;
+	second->data=temp;
+	
+	
+	
+
+}

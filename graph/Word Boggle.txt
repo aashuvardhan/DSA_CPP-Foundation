@@ -1,0 +1,140 @@
+/*
+
+'''
+Given a dictionary of distinct words and an M x N 
+board where every cell has one character. Find all 
+possible words from the dictionary that can be formed 
+by a sequence of adjacent characters on the board. We 
+can move to any of 8 adjacent characters
+
+Note: While forming a word we can move to any of the 8 
+adjacent cells. A cell can be used only once in one word.
+
+
+Example 1:
+
+Input: 
+N = 1
+dictionary = {"CAT"}
+R = 3, C = 3
+board = {{C,A,P},{A,N,D},{T,I,E}}
+Output:
+CAT
+Explanation: 
+C A P
+A N D
+T I E
+Words we got is denoted using same color.
+Example 2:
+
+Input:
+N = 4
+dictionary = {"GEEKS","FOR","QUIZ","GO"}
+R = 3, C = 3 
+board = {{G,I,Z},{U,E,K},{Q,S,E}}
+Output:
+GEEKS QUIZ
+Explanation: 
+G I Z
+U E K
+Q S E 
+Words we got is denoted using same color.
+
+Your task:
+You dont need to read input or print anything. Your task 
+is to complete the function wordBoggle() which takes the 
+dictionary contaning N space-separated strings and R*C 
+board as input parameters and returns a list of words 
+that exist on the board in lexicographical order.
+
+
+Expected Time Complexity: O(N*W + R*C^2)
+Expected Auxiliary Space: O(N*W + R*C)
+
+'''
+
+*/
+#include <bits/stdc++.h>
+using namespace std;
+
+
+
+bool dfs(vector<vector<char>>& board,int x,int y,vector<vector<bool>>& visited,string word,int index,int row,int col){
+    
+    if(index==word.size()){
+        return true;
+    }
+    if(x<0 or x>=row or y<0 or y>=col or visited[x][y] or word[index]!=board[x][y]){
+        return false;
+    }
+    
+    visited[x][y]=true;
+    
+    
+    vector<int> dx={0,1,0,-1,1,1,-1,-1};
+    vector<int> dy={1,0,-1,0,1,-1,1,-1};
+    
+    for(int i=0;i<8;i++){
+        int rx=x+dx[i];
+        int cy=y+dy[i];
+        if(dfs(board,rx,cy,visited,word,index+1,row,col)){
+            return true;
+        }
+    }
+        
+        
+    
+    
+    
+    visited[x][y]=false;
+    return false;
+    
+    
+}
+
+
+
+bool checker(vector<vector<char>>& board,vector<vector<bool>>& visited,string word){
+    char ch=word[0];
+    int row=board.size();
+    int col=board[0].size();
+    
+    
+    for(int i=0;i<row;i++){
+        for(int j=0;j<col;j++){
+            if(board[i][j]==ch){
+                if(dfs(board,i,j,visited,word,0,row,col)){
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+
+
+int main() {
+	// your code goes here
+	vector<string> dictionary = {"GEEKS","FOR","QUIZ","GO"};
+	int row=3,col=3;
+	vector<vector<char>> board = {{'G','I','Z'},{'U','E','K'},{'Q','S','E'}};
+	
+	vector<string> found;
+	
+	sort(dictionary.begin(),dictionary.end());
+	
+	for (string word: dictionary){
+	    
+	    vector<vector<bool>> visited(row,vector<bool>(col));
+	    
+	    if(checker(board,visited,word)){
+	        found.push_back(word);
+	    }
+	    
+	}
+	for(auto ele: found){
+	    cout<<ele<<"   ";
+	}
+
+}

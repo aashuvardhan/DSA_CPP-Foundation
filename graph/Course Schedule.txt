@@ -1,0 +1,57 @@
+//https://leetcode.com/problems/course-schedule/
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool cycle_detect(vector<vector<int>>& course_graph, vector<bool>& visited,vector<bool>& recurst,int source){
+    visited[source]=true;
+    recurst[source]=true;
+    
+    for(int adj: course_graph[source]){
+        if(visited[adj]==false and cycle_detect(course_graph,visited,recurst,adj)){
+            return true;
+        }else if(recurst[adj]==true){
+            return true;
+        }
+    }
+    recurst[source]=false;
+    return false;
+    
+}
+
+
+bool canFinish(vector<pair<int,int>>& prerequisites, int numCourses){
+    
+    vector<bool> visited(numCourses,false);
+    vector<bool> recurst(numCourses,false);
+    
+    vector<vector<int>> course_graph(numCourses);
+    
+    for(auto ele: prerequisites){
+        int start=ele.first;
+        int end=ele.second;
+        course_graph[end].push_back(start);
+    }
+    
+    for(int i=0;i<numCourses;i++){
+        if(visited[i]==false){
+            if(cycle_detect(course_graph,visited,recurst,i)){
+                return false;
+            }
+        }
+    }
+    return true;
+    
+    
+}
+
+int main() {
+	// your code goes here
+	int numCourses=2;
+    vector<pair<int,int>> prerequisites={{1,0},{0,1}};
+    
+    cout<<canFinish(prerequisites,numCourses);
+    
+    
+}

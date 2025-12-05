@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+
+void cross_util(vector<vector<int>>& graph,vector<bool>& visited,vector<bool>& recurst,int source){
+    visited[source]=true;
+    recurst[source]=true;
+    
+    for(int adj: graph[source]){
+        if(visited[adj]==false){
+            cross_util(graph,visited,recurst,adj);
+        }else if(visited[adj]==true and recurst[adj]==false){
+            cout<<"cross edge found between :"<<source<<" and "<<adj<<endl;
+        }
+    }
+    
+    recurst[source]=false;
+    
+}
+
+
+int main() {
+	// your code goes here
+	int n,m;
+	cin>>n>>m;
+	
+	vector<vector<int>> graph(n);
+	
+	for(int i=0;i<m;i++){
+	    int start,end;
+	    cin>>start>>end;
+	    graph[start].push_back(end);
+	    
+	}
+	
+	vector<bool> visited(n,false);
+	vector<bool> recurst(n,false);
+	
+	for(int i=0;i<n;i++){
+	    if(visited[i]==false){
+	        cross_util(graph,visited,recurst,i);
+	    }
+	}
+	
+	
+}

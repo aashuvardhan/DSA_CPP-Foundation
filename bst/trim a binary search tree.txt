@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Treenode{
+    int data;
+    Treenode* left;
+    Treenode*right;
+    
+    Treenode(int x){
+        data=x;
+        left=NULL;
+        right=NULL;
+    }
+};
+
+
+Treenode* trimmer(Treenode* root,int low,int high){
+    if(root==NULL){
+        return NULL;
+    }
+    
+    if(root->data<low){
+        return trimmer(root->right,low,high);
+    }
+    if(root->data>high){
+        return trimmer(root->left,low,high);
+    }
+    
+    root->left=trimmer(root->left,low,high);
+    root->right=trimmer(root->right,low,high);
+    return root;
+}
+
+
+void scan(Treenode* root){
+    if(root==NULL){
+        return;
+    }
+    scan(root->left);
+    cout<<root->data<<"   ";
+    scan(root->right);
+}
+
+
+int main() {
+	// your code goes here
+	
+	Treenode* root=new Treenode(3);
+	root->left=new Treenode(0);
+	root->right=new Treenode(4);
+	root->left->right=new Treenode(2);
+	root->left->right->left=new Treenode(1);
+	
+	Treenode* newroot=trimmer(root,1,3);
+	
+	scan(newroot);
+	
+
+}

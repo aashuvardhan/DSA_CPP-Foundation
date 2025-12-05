@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+
+
+int main() {
+	// your code goes here
+	int n,m;
+	cin>>n>>m;
+	
+	vector<vector<int>> lstedges(m);
+	
+	for(int i=0;i<m;i++){
+	    int start,end,weight;
+	    cin>>start>>end>>weight;
+	    
+	    lstedges[i]={start,end,weight};
+	    
+	}
+	
+	
+	
+	
+	
+	
+	vector<int> dist(n,INT_MAX);
+	dist[0]=0;
+	
+	for(int i=0;i<n-1;i++){
+	    for(int j=0;j<m;j++){
+	        
+	        int start=lstedges[j][0];
+	        int end=lstedges[j][1];
+	        int weight=lstedges[j][2];
+	        
+	        dist[end]=min(dist[end],dist[start]+weight);
+	        
+	    }
+	}
+	
+	
+	for(auto ele: dist){
+	    cout<<ele<<"   ";
+	}
+	
+	
+	
+	
+	
+}
