@@ -1,0 +1,37 @@
+// https://practice.geeksforgeeks.org/problems/sub-array-sum-divisible-by-k2617/1?page=8&company[]=Amazon&category[]=Arrays&sortBy=submissions
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	vector<int> v={4, 4, 0, -2, -3, 1};
+	int n=6;
+	int k=5;
+	
+	int prefix_sum=0;
+	int res=0;
+	unordered_map<int,int> umap;
+	umap[0]=1;
+	
+	
+	for(auto ele: v){
+	    prefix_sum+=ele;
+	    
+	    int mod=prefix_sum%k;
+	    
+	    if(mod<0){
+	        mod=-mod;
+	    }
+	    if(umap[mod]>0){
+	        res+=umap[mod];
+	        
+	    }
+	    umap[mod]++;
+	}
+	
+	cout<<res;
+	
+	
+}

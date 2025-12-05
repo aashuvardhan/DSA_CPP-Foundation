@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	vector<int> v={0,0,5,5,0,0};
+	unordered_map<int,int> umap;
+	int n=v.size();
+	
+	int count=0;
+	int prefix=0;
+	
+	for(auto ele: v){
+	    prefix+=ele;
+	    
+	    if(prefix==0){
+	        count++;
+	    }
+	    
+	    int al;
+	    if(umap.find(prefix-0)!=umap.end()){
+	        al=umap[prefix-0];
+	        
+	        count+=al;
+	    }
+	    umap[prefix]++;
+	    
+	}
+	cout<<count;
+	
+	
+}

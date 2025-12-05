@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	vector<int> v={10, 2, -2, -20, 10};
+	unordered_map<int,int> umap;
+	int n=v.size();
+	int sum=-10;
+	
+	int count=0;
+	int prefix=0;
+	
+	for(auto ele: v){
+	    prefix+=ele;
+	    
+	    if(prefix==sum){
+	        count++;
+	    }
+	    
+	    int al;
+	    if(umap.find(prefix-sum)!=umap.end()){
+	        al=umap[prefix-sum];
+	        
+	        count+=al;
+	    }
+	    umap[prefix]++;
+	    
+	}
+	cout<<count;
+	
+	
+}

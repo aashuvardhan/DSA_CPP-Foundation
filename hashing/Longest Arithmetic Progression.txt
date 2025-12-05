@@ -1,0 +1,31 @@
+// https://practice.geeksforgeeks.org/problems/longest-arithmetic-progression1019/1?page=7&company[]=Amazon&category[]=Arrays&sortBy=submissions
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	vector<int> v= {2, 4, 6, 8, 10};
+	int n=v.size();
+	
+	unordered_map<int,unordered_map<int,int>> dp;
+	int mx=0;
+	
+	for(int i=0;i<n;i++){
+	    
+	    
+	    for(int j=0;j<i;j++){
+	        int diff=v[i]-v[j];
+	        
+	        dp[i][diff]=dp[j][diff]+1;
+	        mx=max(mx,dp[i][diff]);
+	        
+	    }
+	}
+	
+	cout<<mx+1;
+	
+	
+}
