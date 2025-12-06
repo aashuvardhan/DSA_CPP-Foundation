@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	
+	vector<int> v={100,80,10,5,70};
+	int k=3;
+	int x=2;
+	
+	priority_queue<pair<int,int>> pq;
+	//default max heap but we need min heap
+	
+	for(auto ele: v){
+	    pq.push({-abs(ele-x),ele});
+	}
+	
+	for(int i=0;i<k;i++){
+	    cout<<pq.top().second<<endl;
+	    pq.pop();
+	}
+
+}

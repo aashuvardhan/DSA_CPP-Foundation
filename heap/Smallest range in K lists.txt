@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	vector<vector<int>> v= {{1 ,3, 5, 7, 9},{0, 2, 4, 6, 8},{2, 3, 5, 7, 11}};
+	int k=3;
+	int n=5;
+	
+	priority_queue<vector<int>> pq;
+	//default max heap but we need min heap
+	int mini=INT_MAX,maxi=INT_MIN;
+	for(int i=0;i<k;i++){
+	    mini=min(mini,v[i][0]);
+	    maxi=max(maxi,v[i][0]);
+	    pq.push({-v[i][0],i,0});
+	}
+	
+	int start=mini;
+	int end=maxi;
+	
+	while(pq.size()>=k){
+	    vector<int> curr=pq.top();
+	    pq.pop();
+	    int row=curr[1];
+	    int col=curr[2];
+	    
+	    mini=-curr[0];
+	    if((maxi-mini)<(end-start)){
+	        start=mini;
+	        end=maxi;
+	    }
+	    if(col<n){
+	        pq.push({-v[row][col+1],row,col+1});
+	        maxi=max(maxi,v[row][col+1]);
+	    }
+	    
+	    
+	}
+	
+	cout<<start<<"  "<<end;
+	
+
+}
