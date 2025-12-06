@@ -42,3 +42,56 @@ int main() {
 	return 0;
 
 }
+
+/*
+// method 2 storing the pointer itself
+// creating the same min heap
+
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Person{
+    int age;
+    int height;
+    Person(int x,int y){
+        age=x;
+        height=y;
+    }
+};
+
+
+struct mycomp{
+    
+    bool operator()(Person* p1,Person* p2){
+        if(p1->height>p2->height){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    
+};
+
+
+
+int main() {
+	// your code goes here
+	
+	priority_queue<Person*,vector<Person*>,mycomp> pq;
+	
+	Person* p1=new Person(10,7);
+	Person* p2=new Person(40,6);
+	Person* p3=new Person(50,5);
+	
+	pq.push(p1);
+	pq.push(p2);
+	pq.push(p3);
+	
+	cout<<pq.top()->age;
+	
+
+}
+
+
+*/
