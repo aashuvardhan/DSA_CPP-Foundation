@@ -1,37 +1,125 @@
+#include <bits/stdc++.h>
+using namespace std;
 
+struct Node{
+	    int data;
+	    Node *next;
+	    Node(int x){
+	        data=x;
+	        next=NULL;
+	    }
+	};
+	
+	
+Node* deepCopy(Node* head){
+    Node* newhead=NULL;
+    
+    if(head==NULL){
+        return newhead;
+    }else{
+        newhead= new Node(head->data);
+    }
+    Node* curr=newhead;
+    head=head->next;
+    
+    while(head!=NULL){
+        Node* temp=new Node(head->data);
+        curr->next=temp;
+        curr=curr->next;
+        head=head->next;
+    }
+    return newhead;
+    
+}
+	
+	
 Node* reverseList(Node* head){
-    Node* curr=head;
-    Node* next=NULL;
+    
+    Node* newhead=deepCopy(head);
+    
+    Node* curr=newhead;
     Node* prev=NULL;
+    Node* nextt=NULL;
+    
     while(curr!=NULL){
-        next=curr->next;
+        nextt=curr->next;
         curr->next=prev;
         prev=curr;
-        curr=next;
+        curr=nextt;
     }
-    return prev;
-}
-
-bool isPalindrome(Node* head){
-    if(head==NULL)
-    return true;
     
+    return prev;
+    
+    
+}
+	
+	
+Node* middle(Node* head){
     Node* slow=head;
     Node* fast=head;
-    while(fast->next!=NULL and fast->next->next!=NULL){
+    
+    while(fast!=NULL and fast->next!=NULL){
         slow=slow->next;
         fast=fast->next->next;
     }
-    
-    Node* rev=reverseList(slow->next);
+    return slow;
+}
+
+
+
+void traversal(Node* head){
     
     Node* curr=head;
-    while(rev!=NULL){
-        if(rev->data!=curr->data){
+	while(curr!=NULL){
+	    cout<<curr->data<<"  ";
+	    curr=curr->next;
+	}
+	cout<<endl;
+}
+
+bool isPalindrome(Node* head){
+    if(head==NULL){
+        return true;
+    }
+    
+    
+    Node* mid=middle(head);
+    Node* rev_half=reverseList(mid->next);
+    
+    Node* curr=head;
+    while(curr!=NULL and rev_half!=NULL){
+        if(curr->data==rev_half->data){
+            curr=curr->next;
+            rev_half=rev_half->next;
+        }else{
             return false;
         }
-        rev=rev->next;
-        curr=curr->next;
     }
     return true;
+    
+    
+}
+
+
+int main() {
+	// your code goes here
+	
+	Node* head=new Node(10);
+	Node* temp=new Node(20);
+	Node* temp1=new Node(30);
+	Node* dup=new Node(30);
+	Node* temp2=new Node(20);
+	Node* temp3=new Node(10);
+	
+	head->next=temp;
+	temp->next=temp1;
+	temp1->next=dup;
+	dup->next=temp2;
+	temp2->next=temp3;
+	
+	traversal(head);
+	
+	
+	cout<<isPalindrome(head);
+	
 }
