@@ -63,3 +63,54 @@ int main() {
 
     return 0;
 }
+
+
+
+
+
+/*
+
+// approach two easy one
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	vector<vector<int>> v={{10,20,30},{5,15},{1,9,11,18}};
+	vector<int> res;
+	
+	int k=v.size();
+	
+	
+	priority_queue<vector<int>> pq;
+	
+	for(int i=0;i<k;i++){
+	    pq.push({-v[i][0],i,0});
+	}
+	
+	while(pq.size()!=0){
+	    
+	    vector<int> curr=pq.top();
+	    int val=-curr[0];
+	    int row=curr[1];
+	    int col=curr[2];
+	    pq.pop();
+	    
+	    res.push_back(val);
+	    if((col+1)<(v[row].size())){
+	        pq.push({-v[row][col+1],row,col+1});
+	    }
+	    
+	    
+	    
+	}
+	
+	for(auto ele: res){
+	    cout<<ele<<"   ";
+	}
+
+}
+
+*/
