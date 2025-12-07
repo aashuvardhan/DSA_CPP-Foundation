@@ -1,0 +1,143 @@
+/*
+
+'''
+https://practice.geeksforgeeks.org/problems/absolute-list-sorting/1?page=19&company[]=Amazon&sortBy=submissions
+
+Given a linked list L of N nodes, sorted in ascending order
+based on the absolute values of its data,i.e. negative values 
+are considered as positive ones. Sort the linked list according
+to the actual values, consider negative numbers as negative and 
+positive number as positive.
+
+
+Example 1:
+
+Input: 
+List: 1, -2, -3, 4, -5
+Output: 
+List: -5, -3, -2, 1, 4
+ 
+
+Example 2:
+
+Input: 
+List: 5, -10
+Output: 
+List: -10, 5
+ 
+
+Your Task:
+You don't need to read or print anyhting. Your Task is to
+comple the function sortList() which takes the head of the 
+Linked List as input parameter and sort the list in ascending
+order. Don't create a new Linked List instead rearrange the given List.
+
+ 
+
+Expected Time Complexity: O(N)
+Expected Space Complexity: O(1)
+
+'''
+
+
+*/
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node{
+	    int data;
+	    Node *next;
+	    Node(int x){
+	        data=x;
+	        next=NULL;
+	    }
+	};
+	
+	
+Node* deepCopy(Node* head){
+    Node* newhead=NULL;
+    
+    if(head==NULL){
+        return newhead;
+    }else{
+        newhead= new Node(head->data);
+    }
+    Node* curr=newhead;
+    head=head->next;
+    
+    while(head!=NULL){
+        Node* temp=new Node(head->data);
+        curr->next=temp;
+        curr=curr->next;
+        head=head->next;
+    }
+    return newhead;
+    
+}
+	
+
+
+
+
+void traversal(Node* head){
+    
+    Node* curr=head;
+	while(curr!=NULL){
+	    cout<<curr->data<<"  ";
+	    curr=curr->next;
+	}
+	cout<<endl;
+}
+
+
+Node* abs_lst_sort(Node* head){
+    Node* newhead=deepCopy(head);
+    if(newhead==NULL or newhead->next==NULL){
+        return newhead;
+    }
+    
+    Node* curr=newhead;
+    
+    while(curr!=NULL and curr->next!=NULL){
+        
+        Node* nextt=curr->next;
+        if(nextt->data<0){
+            curr->next=curr->next->next;
+            nextt->next=newhead;
+            newhead=nextt;
+            
+        }else{
+            curr=curr->next;
+        }
+        
+        
+    }
+    return newhead;
+    
+}
+
+
+
+int main() {
+	// your code goes here
+	
+	Node* head=new Node(1);
+	Node* temp=new Node(-2);
+	Node* temp1=new Node(-3);
+	Node* temp2=new Node(4);
+	Node* temp3=new Node(-5);
+	
+	
+	head->next=temp;
+	temp->next=temp1;
+	temp1->next=temp2;
+	temp2->next=temp3;
+	
+	traversal(head);
+	
+	Node* lst=abs_lst_sort(head);
+	
+	traversal(lst);
+	
+	
+}

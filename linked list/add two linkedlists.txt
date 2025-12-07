@@ -1,0 +1,186 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node{
+	    int data;
+	    Node *next;
+	    Node(int x){
+	        data=x;
+	        next=NULL;
+	    }
+	};
+	
+	
+
+void traversal(Node* head){
+    
+    Node* curr=head;
+	while(curr!=NULL){
+	    cout<<curr->data<<"  ";
+	    curr=curr->next;
+	}
+	cout<<endl;
+}
+
+
+	
+Node* deepCopy(Node* head){
+    Node* newhead=NULL;
+    
+    if(head==NULL){
+        return newhead;
+    }else{
+        newhead= new Node(head->data);
+    }
+    Node* curr=newhead;
+    head=head->next;
+    
+    while(head!=NULL){
+        Node* temp=new Node(head->data);
+        curr->next=temp;
+        curr=curr->next;
+        head=head->next;
+    }
+    return newhead;
+    
+}
+
+
+Node* add_two_list(Node* head1,Node* head2){
+    
+    Node* newhead1=deepCopy(head1);
+    Node* newhead2=deepCopy(head2);
+    
+    // reversig the two lists
+    
+    Node* curr=newhead1;
+    Node* prev=NULL;
+    while(curr!=NULL){
+        Node* nextt=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=nextt;
+    }
+    
+    newhead1=prev;
+    
+    curr=newhead2;
+    prev=NULL;
+    while(curr!=NULL){
+        Node* nextt=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=nextt;
+    }
+    
+    newhead2=prev;
+    
+    
+    int value=0;
+    int sum=0;
+    int carry=0;
+    
+    Node* freshhead=NULL;
+    
+    if(newhead1!=NULL){
+        sum+=newhead1->data;
+        newhead1=newhead1->next;
+    }
+    if(newhead2!=NULL){
+        sum+=newhead2->data;
+        newhead2=newhead2->next;
+    }
+    
+    if(sum>=10){
+        value=sum%10;
+        carry=sum/10;
+    }
+    
+    freshhead=new Node(value);
+    Node* temp= freshhead;
+    
+    while(newhead1!=NULL or newhead2!=NULL){
+        
+        if(newhead1==NULL){
+            sum=newhead2->data+carry;
+            newhead2=newhead2->next;
+        }
+        if(newhead2==NULL){
+            sum=newhead1->data+carry;
+            newhead1=newhead1->next;
+        }
+        if(newhead1!=NULL and newhead2!=NULL){
+            sum=newhead1->data+newhead2->data+carry;
+            newhead1=newhead1->next;
+            newhead2=newhead2->next;
+        }
+        if(sum>=10){
+            value=sum%10;
+            carry=sum/10;
+        }else{
+            value=sum;
+            carry=0;
+        }
+        
+        temp->next=new Node(value);
+        temp=temp->next;
+        
+    
+    }
+    
+    if(carry>0){
+        temp->next=new Node(carry);
+    }
+    
+    
+    // now reversing this new list
+    
+    Node* curry=freshhead;
+    Node* prevy=NULL;
+    while(curry!=NULL){
+        Node* nextt=curry->next;
+        curry->next=prevy;
+        prevy=curry;
+        curry=nextt;
+    }
+    
+    freshhead=prevy;
+    return freshhead;
+    
+    
+    
+}
+
+
+
+
+int main() {
+	// your code goes here
+	
+	Node* head1=new Node(1);
+	Node* temp=new Node(2);
+	Node* temp1=new Node(3);
+	
+	
+	
+	head1->next=temp;
+	temp->next=temp1;
+	
+	
+	Node* head2=new Node(9);
+	Node* temp2=new Node(9);
+	Node* temp3=new Node(9);
+	
+	head2->next=temp2;
+	temp2->next=temp3;
+	
+	traversal(head1);
+	
+	traversal(head2);
+	
+	Node* newhead=add_two_list(head1,head2);
+	traversal(newhead);
+	
+	
+}

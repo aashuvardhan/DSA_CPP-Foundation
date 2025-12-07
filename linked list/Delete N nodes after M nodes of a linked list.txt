@@ -1,0 +1,118 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node{
+    int data;
+    Node* next;
+    Node(int x){
+        data=x;
+        next=NULL;
+    }
+};
+
+Node* deepCopy(Node* head){
+    Node* newhead=NULL;
+    
+    if(head==NULL){
+        return newhead;
+    }else{
+        newhead= new Node(head->data);
+    }
+    Node* curr=newhead;
+    head=head->next;
+    
+    while(head!=NULL){
+        Node* temp=new Node(head->data);
+        curr->next=temp;
+        curr=curr->next;
+        head=head->next;
+    }
+    return newhead;
+    
+}
+
+void traversal(Node* head){
+    Node* curr=head;
+    while(curr!=NULL){
+        cout<<curr->data<<"  ";
+        curr=curr->next;
+    }
+    cout<<endl;
+    
+}
+
+
+Node* deleter(Node* head,int m,int n){
+    Node* newhead=deepCopy(head);
+    
+    //m nodes skipp then delete n nodes.
+    
+    Node* curr=newhead;
+    while(curr!=NULL){
+        
+        //skipping m nodes
+        int count=m;
+        Node* ptr=NULL;
+        while(count>=1 and curr!=NULL){
+            ptr=curr;
+            curr=curr->next;
+            count--;
+        }
+        
+        //deleting n nodes;
+        count=n;
+        Node* prev=NULL;
+        while(count>=1 and curr!=NULL){
+            prev=curr;
+            curr=curr->next;
+            count--;
+            delete(prev);
+        }
+        
+        if(curr==NULL){
+            ptr->next=NULL;
+        }else{
+            ptr->next=curr;
+        }
+        
+        
+    }
+    return newhead;
+    
+    
+    
+}
+
+
+
+int main() {
+	// your code goes here
+	
+	int m=2,n= 2;
+	
+	Node* head=new Node(9);
+	Node* temp1=new Node(1);
+	Node* temp2=new Node(3);
+	Node* temp3=new Node(5);
+	Node* temp4=new Node(9);
+	Node* temp5=new Node(4);
+	Node* temp6=new Node(10);
+	Node* temp7=new Node(1);
+	
+	head->next=temp1;
+	temp1->next=temp2;
+	temp2->next=temp3;
+	temp3->next=temp4;
+	temp4->next=temp5;
+	temp5->next=temp6;
+	temp6->next=temp7;
+	
+	
+	traversal(head);
+	
+	Node* newhead=deleter(head,m,n);
+	
+	traversal(newhead);
+	
+
+}

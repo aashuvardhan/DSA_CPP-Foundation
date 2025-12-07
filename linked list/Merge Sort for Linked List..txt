@@ -1,0 +1,148 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node{
+    int data;
+    Node* next;
+    Node(int x){
+        data=x;
+        next=NULL;
+    }
+};
+
+Node* deepCopy(Node* head){
+    Node* newhead=NULL;
+    
+    if(head==NULL){
+        return newhead;
+    }else{
+        newhead= new Node(head->data);
+    }
+    Node* curr=newhead;
+    head=head->next;
+    
+    while(head!=NULL){
+        Node* temp=new Node(head->data);
+        curr->next=temp;
+        curr=curr->next;
+        head=head->next;
+    }
+    return newhead;
+    
+}
+
+void traversal(Node* head){
+    Node* curr=head;
+    while(curr!=NULL){
+        cout<<curr->data<<"  ";
+        curr=curr->next;
+    }
+    cout<<endl;
+    
+}
+
+
+Node* merge(Node* head1,Node* head2){
+    Node* merged=new Node(-1);
+    Node* curr=merged;
+    
+    while(head1!=NULL and head2!=NULL){
+        
+        if(head1->data<=head2->data){
+            curr->next=head1;
+            head1=head1->next;
+        }else{
+            curr->next=head2;
+            head2=head2->next;
+        }
+        curr=curr->next;
+        
+    }
+    
+    while(head1!=NULL){
+        curr->next=head1;
+        head1=head1->next;
+        curr=curr->next;
+    }
+    
+    while(head2!=NULL){
+        curr->next=head2;
+        head2=head2->next;
+        curr=curr->next;
+    }
+    
+    return merged->next;
+    
+}
+
+
+
+Node* findMid(Node* head){
+    Node* slow=head;
+    Node* fast=head->next;
+    
+    while(fast!=NULL and fast->next!=NULL){
+        slow=slow->next;
+        fast=fast->next->next;
+    }
+    return slow;
+}
+
+
+Node* mergeSort(Node* head){
+    
+    if(head->next==NULL){
+        return head;
+    }
+    
+    Node* mid=findMid(head);
+    
+    
+    Node* head2=mid->next;
+    
+    mid->next=NULL;
+    
+    Node* newhead1=mergeSort(head);
+    Node* newhead2=mergeSort(head2);
+    
+    Node* finalhead=merge(newhead1,newhead2);
+    
+    return finalhead;
+    
+    
+}
+
+
+
+int main() {
+	// your code goes here
+	
+	int m=2,n= 2;
+	
+	Node* head=new Node(9);
+	Node* temp1=new Node(1);
+	Node* temp2=new Node(3);
+	Node* temp3=new Node(5);
+	Node* temp4=new Node(9);
+	Node* temp5=new Node(4);
+	Node* temp6=new Node(10);
+	Node* temp7=new Node(1);
+	
+	head->next=temp1;
+	temp1->next=temp2;
+	temp2->next=temp3;
+	temp3->next=temp4;
+	temp4->next=temp5;
+	temp5->next=temp6;
+	temp6->next=temp7;
+	
+	
+	traversal(head);
+	
+	
+	
+	Node* newhead=mergeSort(head);
+	traversal(newhead);
+	
+
+}

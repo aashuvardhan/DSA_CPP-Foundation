@@ -1,0 +1,166 @@
+/*
+
+'''
+Given a singly linked list: A0→A1→…→An-1→An, reorder it to: A0→An→A1→An-1→A2→An-2→…
+For example: Given 1->2->3->4->5 its reorder is 1->5->2->4->3.
+
+Note: It is recommended do this in-place without altering the nodes' values.
+
+Example 1:
+
+Input:
+LinkedList: 1->2->3
+Output: 1 3 2
+Example 2:
+
+Input:
+LinkedList: 1->7->3->4
+Output: 1 4 7 3.
+Your Task:
+The task is to complete the function reorderList() which should reorder 
+the list as required. The reorder list is automatically printed by the driver's code.
+
+Note: Try to solve without using any auxilliary space.
+
+Expected Time Complexity: O(N)
+Expected Auxiliary Space: O(1)
+
+'''
+
+
+*/
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node{
+	    int data;
+	    Node *next;
+	    Node(int x){
+	        data=x;
+	        next=NULL;
+	    }
+	};
+	
+	
+Node* deepCopy(Node* head){
+    Node* newhead=NULL;
+    
+    if(head==NULL){
+        return newhead;
+    }else{
+        newhead= new Node(head->data);
+    }
+    Node* curr=newhead;
+    head=head->next;
+    
+    while(head!=NULL){
+        Node* temp=new Node(head->data);
+        curr->next=temp;
+        curr=curr->next;
+        head=head->next;
+    }
+    return newhead;
+    
+}
+	
+
+
+
+
+void traversal(Node* head){
+    
+    Node* curr=head;
+	while(curr!=NULL){
+	    cout<<curr->data<<"  ";
+	    curr=curr->next;
+	}
+	cout<<endl;
+}
+
+
+Node* reordered_list(Node* head){
+    
+    Node* newhead=deepCopy(head);
+    
+    if(newhead==NULL or newhead->next==NULL){
+        return newhead;
+    }
+    
+    
+    
+    
+    Node* slow=newhead;
+    Node* fast=newhead;
+    
+    while(fast!=NULL and fast->next!=NULL){
+        slow=slow->next;
+        fast=fast->next->next;
+    }
+    
+    Node* head2=slow->next;
+    slow->next=NULL;
+    
+    Node* curr=head2;
+    Node* prev=NULL;
+    while(curr!=NULL){
+        Node* nextt=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=nextt;
+    }
+    
+    head2=prev;
+    
+    Node* ptr1=newhead;
+    Node* ptr2=head2;
+    
+    while(ptr2!=NULL){
+        Node* next1=ptr1->next;
+        Node* next2=ptr2->next;
+        
+        ptr1->next=ptr2;
+        ptr2->next=next1;
+        ptr1=next1;
+        ptr2=next2;
+        
+    }
+    
+    return newhead;
+    
+    
+    
+    
+}
+
+
+
+int main() {
+	// your code goes here
+	
+	Node* head=new Node(1);
+	Node* temp=new Node(2);
+	Node* temp1=new Node(3);
+	Node* temp2=new Node(4);
+	Node* temp3=new Node(5);
+	Node* temp4=new Node(6);
+	Node* temp5=new Node(7);
+	Node* temp6=new Node(8);
+	Node* temp7=new Node(9);
+	
+	head->next=temp;
+	temp->next=temp1;
+	temp1->next=temp2;
+	temp2->next=temp3;
+	temp3->next=temp4;
+	temp4->next=temp5;
+	temp5->next=temp6;
+	temp6->next=temp7;
+	
+	traversal(head);
+	
+	
+	Node* reord=reordered_list(head);
+	traversal(reord);
+	
+	
+}

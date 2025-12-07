@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+Node* duplicate_list(Node* head){
+    if(head==NULL){
+	    return NULL;
+	}
+	
+	Node* curr=head;
+	
+	//step1 creating the duplicate nodes with next pointers
+	while(curr!=NULL){
+	    Node* nextt=curr->next;
+	    Node* temp=new Node(curr->data);
+	    curr->next=temp;
+	    temp->next=nextt;
+	    curr=nextt;
+	}
+	
+	// step2 creating the arb pointers
+	
+	curr=head;
+	while(curr!=NULL){
+	    if(curr.arb==NULL){
+	        curr->next->arb=NULL;
+	    }else{
+	        curr->next->arb=curr->arb->next;
+	    }
+	    curr=curr->next->next;
+	}
+	
+	//step 3 seggregating the nodes
+	
+	curr=head;
+	Node* newhead=new Node(0);
+	Node* temp=newhead;
+	
+	while(curr!=NULL){
+	    Node* nextt=curr->next->next;
+	    
+	    temp->next=curr->next;
+	    curr->next=nextt;
+	    curr=nextt;
+	    temp=temp->next;
+	}
+	return newhead->next;
+	
+}
+
+
+
+int main() {
+	// your code goes here
+	// i dont have input for it.
+	// directly working on algo 
+	
+	
+	
+	
+
+}
