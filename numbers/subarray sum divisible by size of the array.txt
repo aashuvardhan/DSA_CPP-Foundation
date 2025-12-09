@@ -21,19 +21,22 @@ int main() {
 	if(rem==0){
 	    cout<<1<<"=="<<1<<endl;
 	}else{
-	    for(int i=1;i<n;i++){
-	        sum+=arr[i];
-	        prefix_sum.push_back(sum);
-	        rem=sum%n;
-	        //cout<<"rem: "<<rem<<endl;
-	        if(rem==0){
-	            cout<<1<<"=="<<i+1<<endl;
-	        }else if(rem_arr[rem]==-1){
-	            rem_arr[rem]=i;
-	        }else{
-	            cout<<rem_arr[rem]+1<<"=="<<i<<endl;
-	        }
-	    }
+	    rem_arr[rem]=1;
+	    
 	}
+    for(int i=1;i<n;i++){
+        sum+=arr[i];
+        prefix_sum.push_back(sum);
+        rem=sum%n;
+        //cout<<"rem: "<<rem<<endl;
+        if(rem==0){
+            cout<<1<<"=="<<i+1<<endl;
+        }else if(rem_arr[rem]==-1){
+            rem_arr[rem]=i;
+        }else{
+            cout<<rem_arr[rem]+1<<"=="<<i+1<<endl;
+        }
+    }
+	
 
 }
