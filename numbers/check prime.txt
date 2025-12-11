@@ -11,6 +11,7 @@ void prime(int n){
             if(n%i==0 or n%(i+2)==0){
                 cout<<"Not Prime"<<endl;
                 flag=true;
+                break;
             }
         }
         if(!flag)
