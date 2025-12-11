@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+
+int find_pivot(vector<int>& v,int low,int high){
+    int random_pos=low+(rand()%(high-low+1));
+    cout<<random_pos<<endl;
+
+    int temp=v[high];
+    v[high]=v[random_pos];
+    v[random_pos]=temp;
+    
+    int pivot=v[high];
+    
+    int ind=low;
+    
+    for(int i=low;i<high;i++){
+        if(v[i]<pivot){
+            int tempu=v[ind];
+            v[ind]=v[i];
+            v[i]=tempu;
+            ind++;
+        }
+    }
+    
+    int tempu=v[ind];
+    v[ind]=v[high];
+    v[high]=tempu;
+    
+    return ind;
+    
+    
+    
+    
+}
+
+
+void quicksort(vector<int>& v,int low,int high){
+    if(low<high){
+        int piv=find_pivot(v,low,high);
+        quicksort(v,low,piv-1);
+        quicksort(v,piv+1,high);
+    }
+    
+}
+
+
+int main() {
+	// your code goes here
+	vector<int> v={8,4,7,9,3,10,5};
+	int low=0;
+	int high=v.size()-1;
+	
+	quicksort(v,low,high);
+	
+	for(auto ele: v){
+	    cout<<ele<<"  ";
+	}
+}

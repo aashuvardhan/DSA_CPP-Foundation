@@ -1,0 +1,109 @@
+/*
+
+'''
+Geek is organizing a party at his house. For the party, he needs exactly 
+N donuts for the guests. Geek decides to order the donuts from a nearby 
+restaurant, which has L chefs and each chef has a rank R. 
+A chef with rank R can make 1 donut in the first R minutes, 1 more donut
+in the next 2R minutes, 1 more donut in 3R minutes, and so on.
+For example. a chef with rank 2, can make one donut in 2 minutes, one
+more donut in the next 4 minutes, and one more in the next 6 minutes.
+So, it take 2 + 4 + 6 = 12 minutes to make 3 donuts. A chef can move
+on to making the next donut only after completing the previous one.
+All the chefs can work simultaneously.
+Since, it's time for the party, Geek wants to know the minimum time
+required in completing N donuts. Return an integer denoting the minimum time
+
+Example 1:
+
+Input:
+N = 10
+L = 4
+rank[] = {1, 2, 3, 4}
+Output: 12
+Explanation: 
+Chef with rank 1, can make 4 donuts in time 1 + 2 + 3 + 4 = 10 mins
+Chef with rank 2, can make 3 donuts in time 2 + 4 + 6 = 12 mins
+Chef with rank 3, can make 2 donuts in time 3 + 6 = 9 mins
+Chef with rank 4, can make 1 donuts in time = 4 minutes
+Total donuts = 4 + 3 + 2 + 1 = 10 and total time = 12 minutes.
+
+
+Example 2:
+
+Input:
+N = 8
+L = 8
+rank[] = {1, 1, 1, 1, 1, 1, 1, 1}
+Output: 1
+Explanation: 
+As all chefs are ranked 1, so each chef can make 1 donuts 1 min.
+Total donuts = 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 = 8 and total time = 8 minutes. 
+
+ 
+
+Your Task:  
+You don't need to read input or print anything. Your task is to complete
+the function findMinTime() which takes an integer N as input and an array 
+A[] of length L denoting the ranks and return an integer denoting the minimum time.
+
+'''
+
+
+*/
+#include <bits/stdc++.h>
+using namespace std;
+
+bool checker(vector<int>& arr,int pos,int n){
+    
+    int count=0;
+    for(int i=0;i<arr.size();i++){
+        /*
+        using the formula of sum of AP and here the sum is the 'pos' variable 
+        according to this question the value of a and d is arr[i].
+        
+        we use the formula s=(n/2)[2a+(n-1)d].
+        here we need to find the value of n and here n(from the eq above) gives the number of cakes that has been prepared with th given sum.
+        solve the quad eq and ultimately reach the eq:-
+        
+        n=[-1+sqrt(1+ 8sd )]/2
+        
+        */
+        int val=(-1+sqrt(1+(8*pos/arr[i])))/2;
+        cout<<val;
+        count+=val;
+    }
+    return count>=n;
+    
+}
+
+
+int main() {
+	// your code goes here
+	vector<int> v={1, 2, 3, 4};
+	
+	// here low and high denotes the time range
+	int low=0;
+	int high=1000000;
+	int n=10;
+	
+	int res=-1;
+	
+	while(low<=high){
+	    int mid=(low+high)/2;
+	    
+	    if(checker(v,mid,n)){
+	        res=mid;
+	        high=mid-1;
+	        cout<<res<<endl;
+	    }else{
+	        low=mid+1;
+	    }
+	    
+	    
+	}
+	
+	cout<<res;
+	
+
+}
