@@ -1,0 +1,78 @@
+/*
+
+'''
+https://www.geeksforgeeks.org/find-maximum-number-possible-by-doing-at-most-k-swaps/
+
+https://www.youtube.com/watch?v=5crucASFoA4
+
+https://practice.geeksforgeeks.org/problems/largest-number-in-k-swaps-1587115620/1
+
+
+'''
+
+
+*/
+#include <bits/stdc++.h>
+using namespace std;
+
+int res=0;
+
+void utility(string str,int ind,int k){
+    
+    int n=str.size();
+    
+    if(ind>=n or k==0){
+        return;
+    }
+    
+    char mx=str[ind];
+    
+    for(int i=ind+1;i<n;i++){
+        mx=max(mx,str[i]);
+    }
+    
+    if(mx!=str[ind]){
+        k--;
+    }
+    
+    for(int i=n-1;i>=ind;i--){
+        if(str[i]==mx){
+            
+            //swapping;
+            char temp=str[ind];
+            str[ind]=str[i];
+            str[i]=temp;
+            
+            int val=stoi(str);
+            if(val>res){
+                res=val;
+            }
+            
+            
+            utility(str,ind+1,k);
+            
+            //swapping back
+            
+            temp=str[ind];
+            str[ind]=str[i];
+            str[i]=temp;
+            
+            
+        }
+    }
+    
+    
+}
+
+
+
+int main() {
+	// your code goes here
+	string str="42431636";
+	int k=3;
+	
+	utility(str,0,k);
+	
+	cout<<res;
+
+}

@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	
+	string str="string";
+	int n=str.size();
+	
+	// creating the max permutation possible
+	int mul=1;
+	for(int i=2;i<=n;i++){
+	    mul*=i;
+	}
+	// arry to keep count of numbers ahead that have not been utilised for calculation.
+	vector<int> count(256,0);
+	
+	int res=1;
+	
+	//keeping thre count of occurance
+	for(auto ele: str){
+	    int val=ele-'a';
+	    count[val]++;
+	}
+	
+	//keep the count of characters ahead of it in increasing order of characters
+	for(int i=1;i<256;i++){
+	    count[i]+=count[i-1];
+	}
+	
+	// taking each character and reducing the count of character ahead of it in incr order
+	// and simultaneously calculation of permutations of smaller character
+	for(int i=0;i<n-1;i++){
+	    mul=mul/(n-i);
+	    int val=str[i]-'a';
+	    res+=count[val-1]*mul;
+	    
+	    for(int j=val;j<256;j++){
+	        count[j]--;
+	    }
+	    
+	}
+	cout<<res;
+	
+	
+}
