@@ -15,6 +15,9 @@ int main() {
 	int n2=pat.size();
 	
 	while(i<n1 and j<n2){
+		if(j==n2){
+            break;
+        }
 	    if(str[i]==pat[j]){
 	        j++;
 	    }
