@@ -1,0 +1,86 @@
+/*
+You are given array of N skilled students with skill values ranging from 1 to M. 
+
+For doing any task, thare should be group , group should have atleast one member of all skills. Groups can be formed by taking subarray. 
+
+Return array consisting of minimum size of subarray to be taken to do tasks starting from each individual. If it is not possible to make a group starting from that individual,then ans corresponding to that index is -1. 
+
+
+Example
+Talent Range :- 1 to 3. 
+[1,2,3,3,1,2,3,2,2, 1]
+
+Then answer would be:-
+[3, 4, 4, 3, 3, 5, 4, -1,-1-1]
+
+
+
+*/
+#include <bits/stdc++.h>
+using namespace std;
+
+
+
+int main() {
+	// your code goes here
+    vector<int> v={1,2,3,3,1,2,3,2,2,1};
+    int k=3;
+    int n=v.size();
+    
+    int i=0;
+    int j=0;
+    
+    unordered_map<int,int> umap; 
+    
+    while(j<n){
+        umap[v[j]]++;
+        j++;
+        if(umap.size()==k){
+            break;
+        }
+        
+    }
+    
+    vector<int> res;
+    if(umap.size()==k)
+    res.push_back(j-i);
+    else
+    res.push_back(-1);
+    
+    
+    for(i=1;i<n;i++){
+        //step1 remove the backlog
+        umap[v[i-1]]--;
+        if(umap[v[i-1]]==0){
+            auto it=umap.find(v[i-1]);
+            umap.erase(it);
+        }
+        // check stability and stabalise
+        if(umap.size()==k){
+            res.push_back(j-i);
+        }else{
+            while(j<n){
+                umap[v[j]]++;
+                j++;
+                if(umap.size()==k){
+                    break;
+                }
+            }
+            
+            if(umap.size()==k){
+                res.push_back(j-i);
+            }else{
+                res.push_back(-1);
+            }
+            
+            
+        }
+        
+    }
+    
+    for(auto ele: res){
+        cout<<ele<<"  ";
+    }
+    
+    
+}
