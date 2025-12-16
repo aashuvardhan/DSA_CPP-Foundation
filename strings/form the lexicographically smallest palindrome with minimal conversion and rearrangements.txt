@@ -1,0 +1,118 @@
+/*
+A palindrome reads the same from either direction, eg. ada: Given a string of lowercase English letters, determine how to change the fewest letters possible to form a palindrome after rearranging the string. If multiple palindromes are possible with the same number of changes, return the alphabetically smallest one.
+
+Example
+s = "azzzbbb"
+* Optimally, change one 'Z' to 'a' to get "aazzbbb".
+* This can be rearranged to form "abzbzba", which is the alphabetically smallest palindrome possible after 1 change.
+Other palindromes are possible with 1 change, such as "azbbbza", "zabbbaz", or
+"zzbbbzz", but "abzbba" is alphabetically smallest.
+
+Input: 
+following parameter: string s: the string
+returns string: the alphabetically smallest palindromic string that can be obtained by hanging a minimum number of characters
+constraints
+* length of s ≤ 3 * 10^5
+* The string s consists of lowercase English letters
+
+
+
+idea:-
+all even occur:-
+	- rearragne
+
+even number of odds occur:-
+	- aaabbb -> aaaabb - > aabbaa
+	- aaabbbcccddd -> aaabbbbccadd - > aabbcddcbbaa
+
+odd number of odd occurance:-
+	-  azzzbbb -> aazzbbb -> abzbzba
+
+
+
+
+*/
+#include <bits/stdc++.h>
+using namespace std;
+
+
+string palindromer(unordered_map<char,int>& umap){
+    //creating the first half.
+    string first="";
+    for(int i=0;i<26;i++){
+        char ch='a'+i;
+        if(umap.find(ch)!=umap.end()){
+            int half=umap[ch]/2;
+            while(half!=0){
+                first+=ch;
+                half--;
+            }
+        }
+    }
+    //the second half
+    string second_half=first;
+    reverse(second_half.begin(),second_half.end());
+    string ans=first+second_half;
+    return ans;
+    
+}
+
+
+int main() {
+	// your code goes here
+	string str="azzzbbb";
+	
+	unordered_map<char,int> umap;
+	
+	for(auto ele: str){
+	    umap[ele]++;
+	}
+	
+	
+	vector<char> odds;
+	
+	for(int i=0;i<26;i++){
+	    char ch='a'+i;
+	    if(umap.find(ch)!=umap.end()){
+	        if(umap[ch]%2!=0){
+	            odds.push_back(ch);
+	        }
+	    }
+	    
+	}
+	if(odds.size()==0){
+	    //case 1 all even occurs
+	    
+	    cout<<palindromer(umap);
+	    
+	}else{
+	    int low=0;
+	    int high=odds.size()-1;
+	    
+	    
+	    
+	    while(low<high){
+	        umap[odds[low]]++;
+	        umap[odds[high]]--;
+	        low++;
+	        high--;
+	    }
+	    
+	    if(odds.size()%2==0){
+	        //case 2 even number of odd occurance
+	        cout<<palindromer(umap);
+	    }else{
+	        //case 3 odd number of odd occurance
+	        string temp=palindromer(umap);
+	        char mid_char=odds[low];
+	        int mid=temp.size()/2;
+	        string first_half=temp.substr(0,mid);
+	        string second_half=temp.substr(mid,mid);
+	        string ans=first_half+mid_char+second_half;
+	        cout<<ans;
+	    }
+	}
+	
+	
+
+}
