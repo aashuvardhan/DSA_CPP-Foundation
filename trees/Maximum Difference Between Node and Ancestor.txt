@@ -1,0 +1,80 @@
+/*
+https://leetcode.com/problems/maximum-difference-between-node-and-ancestor/
+
+
+
+Given the root of a binary tree, find the maximum value v for which there exist different nodes a and b where v = |a.val - b.val| and a is an ancestor of b.
+
+A node a is an ancestor of b if either: any child of a is equal to b or any child of a is an ancestor of b.
+
+ 
+
+
+
+*/
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+struct Node{
+    int data;
+    Node* left;
+    Node* right;
+    
+    Node(int x){
+        data=x;
+        left=NULL;
+        right=NULL;
+    }
+};
+
+
+void traversal(Node* root,int maxi,int mini,int *res_ptr){
+    
+    if(root==NULL){
+        return;
+    }
+    
+    if(root->data>maxi){
+        maxi=root->data;
+    }
+    if(root->data<mini){
+        mini=root->data;
+    }
+    *res_ptr=max(*res_ptr,maxi-mini);
+    
+    traversal(root->left,maxi,mini,res_ptr);
+    traversal(root->right,maxi,mini,res_ptr);
+    
+    
+}
+
+
+int main() {
+	// your code goes here
+	
+	
+
+    Node* root=new Node(8);
+    root->left=new Node(3);
+    root->left->left=new Node(1);
+    root->left->right=new Node(6);
+    
+    root->left->right->left=new Node(4);
+    root->left->right->right=new Node(7);
+    
+    root->right=new Node(10);
+    root->right->right=new Node(14);
+    root->right->right->left=new Node(13);
+
+    
+    int res=0;
+    
+    traversal(root,INT_MIN,INT_MAX,&res);
+    
+    cout<<res;
+
+}

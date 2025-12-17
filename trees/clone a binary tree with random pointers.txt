@@ -1,0 +1,61 @@
+/*
+https://www.geeksforgeeks.org/problems/clone-a-binary-tree/1?page=19&sortBy=submissions&company%5B%5D=Amazon
+
+A special binary tree with random pointers along with the usual left and right pointers is given. Clone the given tree.
+
+Note: The output is 1 if the tree is cloned successfully. Otherwise, the output is 0.
+
+
+
+*/
+#include <bits/stdc++.h>
+using namespace std;
+
+
+struct Node{
+    int data;
+    Node* left;
+    Node* right;
+    Node* random;
+    Node(int x){
+        data=x;
+        left=NULL;
+        right=NULL;
+        random=NULL;
+    }
+};
+
+
+Node*  tree_formation(Node* root,unordered_map<Node*,Node*>& umap){
+    if(root==NULL){
+        return NULL;
+    }
+    
+    
+    if(umap.find(root)==umap.end()){
+        Node* newNode=new Node(root->data);
+        umap[root]=newNode;
+    }else{
+        return umap[root];
+    }
+    
+    root->left=tree_formation(root->left,umap);
+    root->right=tree_formation(root->right,umap);
+    root->random=tree_formation(root->random,umap);
+    
+}
+
+
+int main() {
+	// your code goes here
+	
+	//HERE WE ARE IGNORING THE TREE CREATION AND ASSUMING IT IS GIVEN IN THE QUESTION.
+	
+	unordered_map<Node*,Node*> umap;
+	
+	tree_formation(root,umap);
+	
+	
+	
+
+}
