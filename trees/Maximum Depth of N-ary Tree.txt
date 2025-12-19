@@ -1,0 +1,68 @@
+/*
+https://leetcode.com/problems/maximum-depth-of-n-ary-tree/
+
+*/
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node{
+    int data;
+    vector<Node* > children;
+    
+    Node(int x){
+        data=x;
+    }
+};
+
+void maximum_depth(Node* root){
+    
+    vector<Node* > queue;
+    queue.push_back(root);
+    
+    int level=0;
+    while(queue.size()!=0){
+        level++;
+        int count=queue.size();
+        
+        while(count!=0){
+            Node* curr=*queue.begin();
+            queue.erase(queue.begin());
+            for(auto ele: curr->children){
+                queue.push_back(ele);
+            }
+            
+            count--;
+        }
+        
+    }
+    cout<<level;
+    
+}
+
+
+
+int main() {
+	// your code goes here
+	
+	Node* root = new Node(1);
+
+    // Create child nodes
+    Node* child1=new Node(3);
+    Node* child2=new Node(2);
+    Node* child3=new Node(4);
+    
+    
+    root->children.push_back(child1);
+    root->children.push_back(child2);
+    root->children.push_back(child3);
+    
+    Node* child4=new Node(5);
+    Node* child5=new Node(6);
+    
+    root->children[0]->children.push_back(child4);
+    root->children[0]->children.push_back(child5);
+    
+    
+	maximum_depth(root);
+	
+}
