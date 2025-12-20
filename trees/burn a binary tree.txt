@@ -1,0 +1,118 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+struct Node{
+    int data;
+    Node* left;
+    Node* right;
+    
+    Node(int x){
+        data=x;
+        left=NULL;
+        right=NULL;
+    }
+};
+
+void burn_btree(Node* root,int starter){
+    
+    if(root==NULL){
+        return;
+    }
+    
+    //child->parent formation and finding starter
+    
+    
+    
+    unordered_map<Node*, Node*> umap;
+    
+    vector<pair<Node* ,int>> nextt;
+    
+    int timer=0;
+    
+    vector<Node* > queue;
+    
+    queue.push_back(root);
+    
+    while(queue.size()!=0){
+        
+        int count=queue.size();
+        while(count!=0){
+            Node* curr=*queue.begin();
+            queue.erase(queue.begin());
+            
+            if(curr->left!=NULL){
+                queue.push_back(curr->left);
+                umap[curr->left]=curr;
+            }
+            if(curr->right!=NULL){
+                queue.push_back(curr->right);
+                umap[curr->right]=curr;
+            }
+            
+            if(curr->data==starter){
+                nextt.push_back({curr,0});
+            }
+            
+            count--;
+        }
+        
+    }
+    
+    //start burning from the starter in all direction
+    
+    unordered_set<int> st;
+    while(nextt.size()!=0){
+        pair<Node*,int> p=*nextt.begin();
+        nextt.erase(nextt.begin());
+        Node* curr=p.first;
+        int timee=p.second;
+        
+        timer=max(timer,timee);
+        
+        st.insert(curr->data);
+        
+        if(umap.find(curr)!=umap.end() and st.find(umap[curr]->data)==st.end()){
+            nextt.push_back({umap[curr],timee+1});
+        }
+        
+        if(curr->left!=NULL and st.find(curr->left->data)==st.end()){
+            nextt.push_back({curr->left,timee+1});
+        }
+        
+        if(curr->right!=NULL and st.find(curr->right->data)==st.end()){
+            nextt.push_back({curr->right,timee+1});
+        }
+        
+        
+    }
+    cout<<timer<<endl;
+    
+    
+    
+}
+
+
+
+
+
+
+
+int main() {
+	// your code goes here
+	
+  
+        
+    Node* root=new Node(10);
+    root->left=new Node(20);
+    root->left->right=new Node(5);
+    root->left->left=new Node(30);
+    root->left->left->right=new Node(50);
+    root->left->left->left=new Node(40);
+    
+    root->left->left->left->left=new Node(60);
+    root->left->left->left->left->left=new Node(70);
+    
+    burn_btree(root,50);
+
+}
