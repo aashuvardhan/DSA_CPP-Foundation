@@ -33,3 +33,46 @@ int main() {
 	
 
 }
+
+
+/*  Memoisation method
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int recur(vector<int>& v,int sum,int n,vector<vector<int>>& result){
+    if(sum==0){
+        return true;
+    }
+    if(n==0){
+        return false;
+    }
+    if(result[n][sum]!=-1){
+        return result[n][sum];
+    }
+    
+    if(v[n-1]<=sum){
+        return recur(v,sum-v[n-1],n-1,result) or recur(v,sum,n-1,result);
+    }else{
+        return recur(v,sum,n-1,result);
+    }
+}
+
+
+
+int main() {
+	// your code goes here
+	vector<int> v={2,3,7,8,10};
+	int sum=11;
+	int n=v.size();
+	
+	vector<vector<int>> result(n+1,vector<int>(sum+1,-1));
+    
+    cout<<recur(v,sum,n,result);
+}
+
+
+
+
+*/
