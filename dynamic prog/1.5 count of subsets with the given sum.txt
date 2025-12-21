@@ -36,3 +36,47 @@ int main() {
 	
 
 }
+
+
+/*  Memoisation
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int recur(vector<int>& v,int sum,int n,vector<vector<int>>& result){
+    if(sum==0){
+        return 1;
+    }
+    if(n==0){
+        return 0;
+    }
+    if(result[n][sum]!=-1){
+        return result[n][sum];
+    }
+    
+    if(v[n-1]<=sum){
+        return recur(v,sum-v[n-1],n-1,result) + recur(v,sum,n-1,result);
+    }else{
+        return recur(v,sum,n-1,result);
+    }
+}
+
+
+
+int main() {
+	// your code goes here
+	vector<int> v={2,3,5,6,8,10};
+	int n=v.size();
+	int sum=10;
+	
+	vector<vector<int>> result(n+1,vector<int>(sum+1,-1));
+    
+    cout<<recur(v,sum,n,result);
+}
+
+
+
+
+*/
