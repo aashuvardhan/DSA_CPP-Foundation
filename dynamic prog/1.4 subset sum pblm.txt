@@ -41,14 +41,14 @@ int main() {
 using namespace std;
 
 
-int recur(vector<int>& v,int sum,int n,vector<vector<int>>& result){
+bool recur(vector<int>& v,int sum,int n,vector<vector<int>>& result){
     if(sum==0){
         return true;
     }
     if(n==0){
         return false;
     }
-    if(result[n][sum]!=-1){
+    if(result[n][sum]!=false){
         return result[n][sum];
     }
     
@@ -67,7 +67,7 @@ int main() {
 	int sum=11;
 	int n=v.size();
 	
-	vector<vector<int>> result(n+1,vector<int>(sum+1,-1));
+	vector<vector<int>> result(n+1,vector<int>(sum+1,false));
     
     cout<<recur(v,sum,n,result);
 }
