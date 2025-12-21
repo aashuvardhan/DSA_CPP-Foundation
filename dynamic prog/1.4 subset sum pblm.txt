@@ -41,7 +41,7 @@ int main() {
 using namespace std;
 
 
-bool recur(vector<int>& v,int sum,int n,vector<vector<int>>& result){
+bool recur(vector<int>& v,int sum,int n,vector<vector<bool>>& result){
     if(sum==0){
         return true;
     }
@@ -53,10 +53,11 @@ bool recur(vector<int>& v,int sum,int n,vector<vector<int>>& result){
     }
     
     if(v[n-1]<=sum){
-        return recur(v,sum-v[n-1],n-1,result) or recur(v,sum,n-1,result);
+        result[n][sum]= recur(v,sum-v[n-1],n-1,result) or recur(v,sum,n-1,result);
     }else{
-        return recur(v,sum,n-1,result);
+        result[n][sum]= recur(v,sum,n-1,result);
     }
+	return result[n][sum];
 }
 
 
@@ -67,7 +68,7 @@ int main() {
 	int sum=11;
 	int n=v.size();
 	
-	vector<vector<int>> result(n+1,vector<int>(sum+1,false));
+	vector<vector<bool>> result(n+1,vector<bool>(sum+1,false));
     
     cout<<recur(v,sum,n,result);
 }
