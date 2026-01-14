@@ -47,3 +47,71 @@ int main() {
 	reverse(news.begin(),news.end());
 	cout<<news;
 }
+
+
+/* Memoisation
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int recur_util(string str1,string str2,int m,int n,vector<vector<int>>& ans){
+    if(m==0 or n==0){
+        return 0;
+    }
+    if(ans[m][n]!=-1){
+        return ans[m][n];
+    }
+    
+    if(str1[m-1]==str2[n-1]){
+        ans[m][n]=1+recur_util(str1,str2,m-1,n-1,ans);
+    }else{
+        ans[m][n]=max(recur_util(str1,str2,m-1,n,ans),recur_util(str1,str2,m,n-1,ans));
+    }
+    return ans[m][n];
+    
+}
+
+
+int main() {
+	// your code goes here
+	string str1="abcdefgz";
+	string str2="abcdzxc";
+	int m=str1.size();
+	int n=str2.size();
+	
+	vector<vector<int>> ans(m+1,vector<int>(n+1,-1));
+	
+	recur_util(str1,str2,m,n,ans);
+	
+	
+	
+	int x=m;
+	int y=n;
+	string news="";
+	
+	while(x>0 and y>0){
+	    if(str1[x-1]==str2[y-1]){
+	        news+=str1[x-1];
+	        x--;
+	        y--;
+	    }else{
+	        if(ans[x-1][y]>=ans[x][y-1]){
+	            x--;
+	            
+	        }else{
+	            y--;
+	        }
+	    }
+	}
+	
+	reverse(news.begin(),news.end());
+	cout<<news<<endl;
+	
+
+}
+
+
+
+
+*/

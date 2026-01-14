@@ -33,3 +33,48 @@ int main() {
 	
 
 }
+
+
+/* Memoisation
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+
+int recur(vector<int>& coins,int value,int n,vector<vector<int>>& result){
+    if(value==0){
+        return 1;
+    }
+    if(n==0){
+        return 0;
+    }
+    if(result[n][value]!=-1){
+        return result[n][value];
+    }
+    
+    if(coins[n-1]<=value){
+        result[n][value]= recur(coins,value-coins[n-1],n,result) + recur(coins,value,n-1,result);
+    }else{
+        result[n][value]= recur(coins,value,n-1,result);
+    }
+    return result[n][value];
+}
+
+
+int main() {
+	// your code goes here
+	vector<int> coins={1,2,3};
+	int value=5;
+	int n=coins.size();
+	
+	vector<vector<int>> result(n+1,vector<int>(value+1,-1));
+	
+	cout<<recur(coins,value,n,result);
+
+}
+
+
+
+
+*/
