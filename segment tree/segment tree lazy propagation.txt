@@ -1,3 +1,10 @@
+/*
+
+https://www.geeksforgeeks.org/dsa/lazy-propagation-in-segment-tree/
+
+*/
+
+
 #include <bits/stdc++.h>
 using namespace std;
 
