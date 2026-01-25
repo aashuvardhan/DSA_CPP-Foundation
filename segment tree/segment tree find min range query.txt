@@ -1,0 +1,83 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+void range_update(vector<int>& tree,int low,int high,int tree_ind,int pos,int val){
+    
+    if(pos<low or pos>high){
+        return;
+    }
+    
+    if(low==high){
+        tree[tree_ind]=val;
+        return;
+    }
+    
+    int mid=(low+high)/2;
+    if(pos<=mid){
+        range_update(tree,low,mid,2*tree_ind+1,pos,val);
+    }else{
+        range_update(tree,mid+1,high,2*tree_ind+2,pos,val);
+    }
+    tree[tree_ind]=min(tree[2*tree_ind+1],tree[2*tree_ind+2]);
+    
+    
+}
+
+
+
+
+int range_min(vector<int>& tree,int low,int high,int q_start,int q_end,int tree_ind){
+    
+    //validity check    
+    if(q_start>high or q_end<low){
+        return INT_MAX;
+    }
+    
+    //perfect fit
+    if(low>=q_start and high<=q_end){
+        return tree[tree_ind];
+    }
+    
+    int mid=(low+high)/2;
+    return min(range_min(tree,low,mid,q_start,q_end,2*tree_ind+1),
+                range_min(tree,mid+1,high,q_start,q_end,2*tree_ind+2));
+    
+}
+
+
+
+int construct(vector<int>& arr,vector<int>& tree,int low,int high,int tree_ind){
+    
+    if(low==high){
+        tree[tree_ind]=arr[low];
+        return arr[low];
+    }
+    
+    int mid=(low+high)/2;
+    int left=construct(arr,tree,low,mid,2*tree_ind+1);
+    int right=construct(arr,tree,mid+1,high,2*tree_ind+2);
+    
+    tree[tree_ind]=left+right;
+    return tree[tree_ind];
+}
+
+
+
+int main() {
+	// your code goes here
+	vector<int> arr={1, 3, 2, 7, 9, 11};
+	int n=arr.size();
+	vector<int> tree(4*n);
+	
+	construct(arr,tree,0,n-1,0);
+	
+	cout<<range_min(tree,0,n-1,1,3,0)<<endl;
+	
+	range_update(tree,0,n-1,0,1,-1);
+	
+	cout<<range_min(tree,0,n-1,1,3,0)<<endl;
+	
+	
+
+}

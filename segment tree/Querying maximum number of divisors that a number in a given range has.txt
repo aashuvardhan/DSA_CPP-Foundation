@@ -1,0 +1,103 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+
+
+int range_query(vector<int>& tree,int low,int high,int tree_ind,int q_start,int q_end){
+    
+    //check validity
+    if(low>high or q_start>high or q_end<low){
+        return 0;
+    }
+    
+    //fitness check
+    if(low>=q_start and high<=q_end){
+        return tree[tree_ind];
+    }
+    
+    int mid=(low+high)/2;
+    return max(range_query(tree,low,mid,2*tree_ind+1,q_start,q_end),
+                range_query(tree,mid+1,high,2*tree_ind+2,q_start,q_end));
+    
+    
+}
+
+
+
+
+
+int construct(vector<int>& arr,vector<int>& tree,int low,int high,int tree_ind){
+    
+    if(low==high){
+        tree[tree_ind]=arr[low];
+        return arr[low];
+    }
+    
+    int mid=(low+high)/2;
+    int left=construct(arr,tree,low,mid,2*tree_ind+1);
+    int right=construct(arr,tree,mid+1,high,2*tree_ind+2);
+    
+    tree[tree_ind]=max(left,right);
+    return tree[tree_ind];
+}
+
+
+
+int main() {
+	// your code goes here
+	//creating the divisor array 
+	
+	vector<int> least_prime(10000,-1);
+	
+	least_prime[1]=1;
+	for(int i=2;i<10000;i++){
+	    if(least_prime[i]==-1){
+	        least_prime[i]=i;
+	        
+	        for(int j=i*i;j<10000;j+=i){
+	            if(least_prime[j]==-1){
+	                least_prime[j]=i;
+	            }
+	        }
+	    }
+	}
+	
+	
+	
+	vector<int> divisors(10000);
+	divisors[0]=0;
+	divisors[1]=1;
+	
+	for(int m=2;m<10000;m++){
+	    
+	    divisors[m]=1;
+	    
+	    int temp=m;
+	    int prev=least_prime[temp];
+	    temp=temp/prev;
+	    int count=1;
+	    
+	    while(temp>1){
+	        if(least_prime[temp]==prev){
+	            count++;
+	        }else{
+	            divisors[m]*=(count+1);
+	            count=1;
+	            prev=least_prime[temp];
+	        }
+	        temp=temp/prev;
+	    }
+	    divisors[m]*=(count+1);
+	}
+	
+	
+	vector<int> tree(4*10000);
+	
+	construct(divisors,tree,0,10000-1,0);
+	
+	cout<<range_query(tree,0,10000-1,0,1,100)<<endl;
+	
+	cout<<range_query(tree,0,10000-1,0,10,48)<<endl;
+
+}

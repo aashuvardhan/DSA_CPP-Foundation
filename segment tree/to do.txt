@@ -1,0 +1,6 @@
+1.  https://www.geeksforgeeks.org/dsa/range-lcm-queries/
+2.  https://www.geeksforgeeks.org/dsa/min-max-range-queries-array/
+
+3.  https://www.geeksforgeeks.org/dsa/queries-to-find-maximum-product-pair-in-range-with-updates/
+
+4.  https://www.geeksforgeeks.org/dsa/number-primes-subarray-updates/
