@@ -1,0 +1,127 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+void update(vector<int>& tree,int low,int high,int tree_ind,int pos,int val){
+    
+    if(pos<low or pos>high){
+        return;
+    }
+    
+    if(low==high){
+        tree[tree_ind]=val;
+        return;
+    }
+    
+    int mid=(low+high)/2;
+    if(pos<=mid){
+        update(tree,low,mid,2*tree_ind+1,pos,val);
+    }else{
+        update(tree,mid+1,high,2*tree_ind+2,pos,val);
+    }
+    tree[tree_ind]=tree[2*tree_ind+1]+tree[2*tree_ind+2];
+    
+    
+    
+}
+
+
+
+
+int range_query(vector<int>& tree,int low,int high,int tree_ind,int q_start,int q_end){
+    
+    
+    if(low>high or q_start>high or q_end<low){
+        return 0;
+    }
+    
+    if(low>=q_start and high<=q_end){
+        return tree[tree_ind];
+    }
+    
+    int mid=(low+high)/2;
+    return range_query(tree,low,mid,2*tree_ind+1,q_start,q_end)+
+            range_query(tree,mid+1,high,2*tree_ind+2,q_start,q_end);
+    
+    
+}
+
+
+int construct(vector<int>& arr,vector<int>& tree,int low,int high,int tree_ind){
+    
+    if(low==high){
+        tree[tree_ind]=arr[low];
+        return arr[low];
+    }
+    
+    int mid=(low+high)/2;
+    int left=construct(arr,tree,low,mid,2*tree_ind+1);
+    int right=construct(arr,tree,mid+1,high,2*tree_ind+2);
+    
+    tree[tree_ind]=left+right;
+    return tree[tree_ind];
+    
+    
+}
+
+
+
+int main() {
+	// your code goes here
+	vector<int> arr={1, 2, 3, 5, 7, 9};
+	
+	int maxi=0;
+	for(auto ele: arr){
+	    maxi=max(maxi,ele);
+	}
+	
+	
+	vector<int> least_primes(maxi+1,-1);
+	
+	for(int i=2;i<maxi+1;i++){
+	    if(least_primes[i]==-1){
+	        least_primes[i]=i;
+	        
+	        for(int j=i*i;j<maxi+1;j+=i){
+	            if(least_primes[j]==-1){
+	                least_primes[j]=i;
+	            }
+	        }
+	    }
+	}
+	
+	
+	
+	
+	vector<int> primes;
+	
+	for(auto ele: arr){
+	    if(least_primes[ele]==ele){
+	        primes.push_back(1);
+	    }else{
+	        primes.push_back(0);
+	    }
+	}
+	
+	
+	int n=primes.size();
+	vector<int> tree(4*n);
+	
+	
+	construct(primes,tree,0,n-1,0);
+	
+	cout<<range_query(tree,0,n-1,0,0,4)<<endl;
+	
+	//during updating we need to check if the value is prime or not
+	if(least_primes[6]==6){//if prime put 1 else 0
+	    update(tree,0,n-1,0,3,1);
+	}else{
+	    update(tree,0,n-1,0,3,0);
+	}
+	
+	
+	
+	cout<<range_query(tree,0,n-1,0,0,4)<<endl;
+	
+
+}
