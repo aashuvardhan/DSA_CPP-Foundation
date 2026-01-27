@@ -1,0 +1,76 @@
+//Min-Max Range Queries in Array
+//https://www.geeksforgeeks.org/dsa/min-max-range-queries-array/
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+
+vector<int> range_query(vector<vector<int>>& tree,int low,int high,int tree_ind,int q_start,int q_end){
+    
+    //validity check
+    
+    if(low>high or q_start>high or q_end<low){
+        return {INT_MIN,INT_MAX};
+    }
+    
+    //perfect fit check
+    if(low>=q_start and high<=q_end){
+        return tree[tree_ind];
+    }
+    
+    int mid=(low+high)/2;
+    
+    vector<int> left=range_query(tree,low,mid,2*tree_ind+1,q_start,q_end);
+    vector<int> right=range_query(tree,mid+1,high,2*tree_ind+2,q_start,q_end);
+    
+    vector<int> temp(2);
+    temp[0]=max(left[0],right[0]);
+    temp[1]=min(left[1],right[1]);
+    return temp;
+    
+    
+    
+}
+
+
+
+vector<int> construct(vector<int>& arr,vector<vector<int>>& tree,int low,int high,int tree_ind){
+    
+    if(low==high){
+        //max,min
+        tree[tree_ind]={arr[low],arr[low]};
+        return tree[tree_ind];
+    }
+    
+    int mid=(low+high)/2;
+    
+    vector<int> left=construct(arr,tree,low,mid,2*tree_ind+1);
+    vector<int> right=construct(arr,tree,mid+1,high,2*tree_ind+2);
+    
+    tree[tree_ind][0]=max(left[0],right[0]); //max of maxes
+    tree[tree_ind][1]=min(left[1],right[1]);
+    return tree[tree_ind];
+    
+    
+}
+
+
+
+int main() {
+	// your code goes here
+	vector<int> arr={ 1, 8, 5, 9, 6, 14, 2, 4, 3, 7 };
+	int n=arr.size();
+	
+	vector<vector<int>> tree(4*n,vector<int>(2));
+	
+	construct(arr,tree,0,n-1,0);
+	
+	
+	vector<int> temp=range_query(tree,0,n-1,0,1,5);
+	cout<<"Maximum: "<<temp[0]<<"  "<<"Mininum: "<<temp[1]<<endl;
+	
+
+}
