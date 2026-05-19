@@ -1,57 +1,33 @@
-#include <bits/stdc++.h>
-using namespace std;
+int findTargetSumWays(vector<int>& nums, int target) {
+        int sum = 0;
+        for(auto ele : nums) {
+            sum += ele;
+        }
 
-int main() {
-	// your code goes here
-	vector<int> v={1,1,2,3};
-	int n=v.size();
-	int diff=1;
-	
-	int sum=0;
-	for(auto ele: v){
-	    sum+=ele;
-	}
-	
-	/*
-	s1+s2=sum
-	s1-s2=diff
-	-------------
-	2*s1=sum+diff
-	---------------
-	or s1=(sum+diff)/2
-	*/
-	
-	int new_sum=(sum+diff)/2;
-	
-	// we need to find how many times this new sum is possible using the array elements.
-	
-	vector<vector<int>> result(n+1,vector<int>(new_sum+1,-1));
-	
-	for(int i=0;i<=n;i++){
-	    result[i][0]=1;
-	}
-	
-	for(int j=1;j<=new_sum;j++){
-	    result[0][j]=0;
-	}
-	
-	
-	for(int i=1;i<=n;i++){
-	    for(int j=1;j<=new_sum;j++){
-	        
-	        if(v[i-1]<=j){
-	            result[i][j]=result[i-1][j-v[i-1]] + result[i-1][j];
-	        }else{
-	            result[i][j]=result[i-1][j];
-	        }
-	    }
-	}
-	
-	cout<<result[n][new_sum];
-	
-	
-	
-	
-	
+        // 1. Boundary checks to prevent negative or invalid targets
+        if(abs(target) > sum || (sum + target) < 0 || (sum + target) % 2 != 0) {
+            return 0;
+        }
 
-}
+        int news = (sum + target) / 2;
+        int n = nums.size();
+        
+        // Initialize the table with 0s
+        vector<vector<int>> tab(n + 1, vector<int>(news + 1, 0));
+
+        // 2. Base case: 1 way to make a sum of 0 using 0 elements
+        tab[0][0] = 1;
+
+        for(int i = 1; i <= n; i++) {
+            // Start j from 0 to properly count subsets that include '0' values
+            for(int j = 0; j <= news; j++) {
+                if(nums[i - 1] <= j) {
+                    tab[i][j] = tab[i - 1][j - nums[i - 1]] + tab[i - 1][j];
+                } else {
+                    tab[i][j] = tab[i - 1][j];
+                }
+            }
+        }
+
+        return tab[n][news];
+    }
