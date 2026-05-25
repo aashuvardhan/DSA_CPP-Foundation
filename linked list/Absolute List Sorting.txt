@@ -44,76 +44,48 @@ Expected Space Complexity: O(1)
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Node{
-	    int data;
-	    Node *next;
-	    Node(int x){
-	        data=x;
-	        next=NULL;
-	    }
-	};
-	
-	
-Node* deepCopy(Node* head){
-    Node* newhead=NULL;
-    
-    if(head==NULL){
-        return newhead;
-    }else{
-        newhead= new Node(head->data);
-    }
-    Node* curr=newhead;
-    head=head->next;
-    
-    while(head!=NULL){
-        Node* temp=new Node(head->data);
-        curr->next=temp;
-        curr=curr->next;
-        head=head->next;
-    }
-    return newhead;
-    
-}
-	
 
+struct Node{
+    int data;
+    Node* next;
+    Node(int x){
+        data=x;
+        next=NULL;
+    }
+};
 
 
 
 void traversal(Node* head){
+    if(head==NULL){
+        return;
+    }
     
     Node* curr=head;
-	while(curr!=NULL){
-	    cout<<curr->data<<"  ";
-	    curr=curr->next;
-	}
-	cout<<endl;
+    while(curr!=NULL){
+        cout<<curr->data<<"  ";
+        curr=curr->next;
+    }
+    cout<<endl;
 }
 
 
-Node* abs_lst_sort(Node* head){
-    Node* newhead=deepCopy(head);
-    if(newhead==NULL or newhead->next==NULL){
-        return newhead;
+void absolute_sorting(Node*& root){
+    if(root==NULL or root->next==NULL){
+        return;
     }
     
-    Node* curr=newhead;
-    
+    Node* curr=root;
     while(curr!=NULL and curr->next!=NULL){
-        
         Node* nextt=curr->next;
         if(nextt->data<0){
             curr->next=curr->next->next;
-            nextt->next=newhead;
-            newhead=nextt;
-            
+            nextt->next=root;
+            root=nextt;
         }else{
             curr=curr->next;
         }
-        
-        
     }
-    return newhead;
-    
 }
 
 
@@ -134,10 +106,8 @@ int main() {
 	temp2->next=temp3;
 	
 	traversal(head);
+	absolute_sorting(head);
+	traversal(head);
 	
-	Node* lst=abs_lst_sort(head);
-	
-	traversal(lst);
-	
-	
+
 }
