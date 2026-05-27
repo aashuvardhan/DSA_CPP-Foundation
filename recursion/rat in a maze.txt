@@ -8,37 +8,37 @@ void solve(vector<vector<int>>& mat,vector<vector<bool>>& visited,int row,int co
         ans.push_back(str);
         return;
     }
-    
+    visited[row][col]=true;
     
     //downward
     if(((row+1)<n) && (mat[row+1][col]==1) && (visited[row+1][col]==false)){
-        visited[row][col]=true;
+        
         solve(mat,visited,row+1,col,n,str+"D",ans);
-        visited[row][col]=false;
+        
     }
     
     //left
     if(((col-1)>=0) && (mat[row][col-1]==1) && (visited[row][col-1]==false)){
-        visited[row][col]=true;
+        
         solve(mat,visited,row,col-1,n,str+"L",ans);
-        visited[row][col]=false;
+        
     }
     
     //right
     if(((col+1)<n) && (mat[row][col+1]==1) && (visited[row][col+1]==false)){
-        visited[row][col]=true;
+        
         solve(mat,visited,row,col+1,n,str+"R",ans);
-        visited[row][col]=false;
+        
     }
     
     //upwards
     if(((row-1)>=0) && (mat[row-1][col]==1) && (visited[row-1][col]==false)){
-        visited[row][col]=true;
+        
         solve(mat,visited,row-1,col,n,str+"U",ans);
-        visited[row][col]=false;
+        
     }
     
-    
+    visited[row][col]=false;
     
 }
 
