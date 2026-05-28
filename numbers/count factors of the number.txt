@@ -1,10 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
 int main() {
-	int n;
-	cin>>n;
+	// your code goes here
+	
+	int n=59;
 	
 	int i=2;
 	int res=1;
@@ -12,12 +12,16 @@ int main() {
 	    if(n%i==0){
 	        int count=0;
 	        while(n%i==0){
-	            n/=i;
-	            count+=1;
+	            n=n/i;
+	            count++;
 	        }
 	        res=res*(count+1);
 	    }
-	    i+=1;
+	    i++;
 	}
-    cout<<res<<endl;
+	if(n>1){
+	    res=res*(1+1);
+	}
+	cout<<(res);
+
 }
