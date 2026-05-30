@@ -29,8 +29,8 @@ using namespace std;
 
 int main() {
 	// your code goes here
-	int n=2;
-	int k=7;
+	int n=-2;
+	int x=7;
 	
 	double res=1;
 	bool pos=(n>=0)?true:false;
@@ -42,9 +42,9 @@ int main() {
 		n/=2;
 	}
 	if(pos)
-		return res;
+		cout<< res;
 	else{
-		return 1/res;
+		cout<< 1/res;
 	}
 	
 
