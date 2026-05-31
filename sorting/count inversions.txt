@@ -1,65 +1,75 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int merge(int *ptr,int l,int mid,int h){
+
+
+int merge(vector<int>& v,int low,int mid,int high){
+    
     vector<int> left;
-    for(int i=l;i<=mid;i++){
-        left.push_back(*(ptr+i));
-    }
     vector<int> right;
-    for(int i=mid+1;i<=h;i++){
-        right.push_back(*(ptr+i));
+    
+    for(int i=low;i<=mid;i++){
+        left.push_back(v[i]);
     }
     
+    for(int i=mid+1;i<=high;i++){
+        right.push_back(v[i]);
+    }
+    
+    
     int i=0;
-    int n1=left.size();
+    int m=left.size();
     int j=0;
-    int n2=right.size();
-    int k=l;
+    int n=right.size();
+    
+    int k=low;
+    
     int res=0;
-    while(i<n1 && j<n2){
+    
+    while(i<m and j<n){
         if(left[i]<=right[j]){
-            *(ptr+k)=left[i];
+            v[k]=left[i];
             i++;
-            
         }else{
-		//the only change
-            res+=(n1-i);
-            *(ptr+k)=right[j];
+            res+=(m-i);
+            v[k]=right[j];
             j++;
         }
         k++;
     }
-    while(i<n1){
-        *(ptr+k)=left[i];
+    
+    while(i<m){
+        v[k]=left[i];
         i++;
         k++;
     }
-    while(j<n2){
-        *(ptr+k)=right[j];
-        j++;
+    
+    while(j<n){
+        v[k]=right[j];
         k++;
+        j++;
     }
+    
+    
     return res;
+    
+    
 }
 
 
 
-
-int mergesort(int *ptr,int low,int high){
+int mergesort(vector<int>& v,int low,int high){
+    
     int res=0;
     if(low<high){
         
         int mid=(low+high)/2;
-        res+=mergesort(ptr,low,mid);
-        res+=mergesort(ptr,mid+1,high);
-        res+=merge(ptr,low,mid,high);
-        
+        res+=mergesort(v,low,mid);
+        res+=mergesort(v,mid+1,high);
+        res+=merge(v,low,mid,high);
     }
     return res;
-    
 }
-
 
 
 
@@ -67,14 +77,9 @@ int main() {
 	// your code goes here
 	vector<int> v={40,30,20,10};
 	int low=0;
+	int high=v.size()-1;
 	
-	int high=3;
-	
-	int *ptr=&v[0];
-	int res=mergesort(ptr,low,high);
-	
-	cout<<res<<endl;
+	int res=mergesort(v,low,high);
+	cout<<res;
 
 }
-
-
