@@ -1,4 +1,3 @@
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -9,10 +8,9 @@ struct Node{
 	        data=x;
 	        next=NULL;
 	    }
-	};
+};
 	
 	
-
 void traversal(Node* head){
     
     Node* curr=head;
@@ -24,97 +22,54 @@ void traversal(Node* head){
 }
 
 
-	
-Node* deepCopy(Node* head){
-    Node* newhead=NULL;
-    
-    if(head==NULL){
-        return newhead;
-    }else{
-        newhead= new Node(head->data);
-    }
-    Node* curr=newhead;
-    head=head->next;
-    
-    while(head!=NULL){
-        Node* temp=new Node(head->data);
-        curr->next=temp;
-        curr=curr->next;
-        head=head->next;
-    }
-    return newhead;
-    
-}
-
-
 Node* add_two_list(Node* head1,Node* head2){
     
-    Node* newhead1=deepCopy(head1);
-    Node* newhead2=deepCopy(head2);
+    //reversing the two lists
     
-    // reversig the two lists
-    
-    Node* curr=newhead1;
-    Node* prev=NULL;
-    while(curr!=NULL){
-        Node* nextt=curr->next;
-        curr->next=prev;
-        prev=curr;
-        curr=nextt;
+    Node* curr1=head1;
+    Node* prev1=NULL;
+    while(curr1!=NULL){
+        Node* nextt=curr1->next;
+        curr1->next=prev1;
+        prev1=curr1;
+        curr1=nextt;
     }
     
-    newhead1=prev;
+    head1=prev1;
     
-    curr=newhead2;
-    prev=NULL;
-    while(curr!=NULL){
-        Node* nextt=curr->next;
-        curr->next=prev;
-        prev=curr;
-        curr=nextt;
+    
+    Node* curr2=head2;
+    Node* prev2=NULL;
+    
+    while(curr2!=NULL){
+        Node* nextt=curr2->next;
+        curr2->next=prev2;
+        prev2=curr2;
+        curr2=nextt;
     }
     
-    newhead2=prev;
+    head2=prev2;
     
     
     int value=0;
-    int sum=0;
     int carry=0;
     
-    Node* freshhead=NULL;
     
-    if(newhead1!=NULL){
-        sum+=newhead1->data;
-        newhead1=newhead1->next;
-    }
-    if(newhead2!=NULL){
-        sum+=newhead2->data;
-        newhead2=newhead2->next;
-    }
+    Node* newhead=new Node(-1);
+    Node* temp=newhead;
     
-    if(sum>=10){
-        value=sum%10;
-        carry=sum/10;
-    }
-    
-    freshhead=new Node(value);
-    Node* temp= freshhead;
-    
-    while(newhead1!=NULL or newhead2!=NULL){
+    while(head1!=NULL or head2!=NULL){
+        int sum=0;
+        sum+=carry;
+        if(head1!=NULL){
+            sum+=head1->data;
+            head1=head1->next;
+        }
+        if(head2!=NULL){
+            sum+=head2->data;
+            head2=head2->next;
+        }
         
-        if(newhead1==NULL){
-            sum=newhead2->data+carry;
-            newhead2=newhead2->next;
-        }
-        if(newhead2==NULL){
-            sum=newhead1->data+carry;
-            newhead1=newhead1->next;
-        }
-        if(newhead1!=NULL and newhead2!=NULL){
-            sum=newhead1->data+newhead2->data+carry;
-            newhead1=newhead1->next;
-            newhead2=newhead2->next;
-        }
         if(sum>=10){
             value=sum%10;
             carry=sum/10;
@@ -126,32 +81,31 @@ Node* add_two_list(Node* head1,Node* head2){
         temp->next=new Node(value);
         temp=temp->next;
         
-    
+        
     }
     
     if(carry>0){
         temp->next=new Node(carry);
     }
     
+    //now reversing the newhead.
     
-    // now reversing this new list
+    temp=newhead->next;
+    delete(newhead);
     
-    Node* curry=freshhead;
-    Node* prevy=NULL;
-    while(curry!=NULL){
-        Node* nextt=curry->next;
-        curry->next=prevy;
-        prevy=curry;
-        curry=nextt;
+    Node* curr=temp;
+    Node* prev=NULL;
+    while(curr!=NULL){
+        Node* nextt=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=nextt;
     }
     
-    freshhead=prevy;
-    return freshhead;
-    
-    
+    temp=prev;
+    return temp;
     
 }
-
 
 
 
@@ -179,8 +133,8 @@ int main() {
 	
 	traversal(head2);
 	
-	Node* newhead=add_two_list(head1,head2);
-	traversal(newhead);
+	Node* newnode=add_two_list(head1,head2);
 	
-	
+	traversal(newnode);
+
 }
