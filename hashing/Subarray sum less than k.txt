@@ -1,0 +1,40 @@
+int subarr_sum(vector<int>& v,int& k){
+        int n=v.size();
+
+        int curr_sum=0;
+        int max_val=INT_MIN;
+        set<int> prefix_sums;
+
+        prefix_sums.insert(0);
+
+        for(auto ele: v){
+            curr_sum+=ele;
+
+		/*
+		To efficiently find the maximum subarray sum < k in a 1D array, 
+		you should use Prefix Sums combined with a balanced binary search tree, which is perfectly handled by std::set in C++.
+		
+		For any current prefix sum curr_sum, you want to find a previous prefix sum prev_sum such that:
+		
+		curr_sum - prev_sum < k
+
+		Rearranging the equation, you need to find the smallest 
+
+		prev_sum where: prev_sum >= curr_sum - k
+
+		You can find this efficiently using set::lower_bound().
+
+
+		*/
+            auto it=prefix_sums.lower_bound(curr_sum-k);
+
+
+            if(it!=prefix_sums.end()){
+                max_val=max(max_val,curr_sum-*it);
+            }
+
+            prefix_sums.insert(curr_sum);
+        }
+        return max_val;
+
+    }
