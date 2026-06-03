@@ -20,6 +20,7 @@ vector<int> postorder(Treenode* root){
     if(root==NULL){
         
         return {0,INT_MIN,INT_MAX};
+		// this vector is {count of nodes,largest in the subtree,smallest in the subtree};
     }
     if(root->left==NULL and root->right==NULL){
         res=1;
