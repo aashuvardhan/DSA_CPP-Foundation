@@ -2,39 +2,59 @@
 using namespace std;
 
 
-
-bool detect_cycle_directed(vector<vector<int>>& graph,vector<bool>& visited,int source){
+bool cycle_detect_util(vector<vector<int>>& graph,vector<bool>& visited,vector<bool>& recst,int source){
+    
     visited[source]=true;
-    for(int adj: graph[source]){
+    recst[source]=true;
+    
+    for(auto adj: graph[source]){
         if(visited[adj]==false){
-            if(detect_cycle_directed(graph,visited,adj)==true){
-                return true;
+            if(cycle_detect_util(graph,visited,recst,adj)==true){
+                return true;   
             }
-        }else{
+        }else if(recst[adj]==true){
             return true;
         }
     }
+    recst[source]=false;
     return false;
+    
+    
+}
+
+
+bool cycle_detect(vector<vector<int>>& graph){
+    int n=graph.size();
+    
+    vector<bool> visited(n);
+    vector<bool> recst(n);
+    
+    for(int i=0;i<n;i++){
+        if(visited[i]==false){
+            if(cycle_detect_util(graph,visited,recst,i)==true){
+                return true;
+            }
+        }
+    }
+    return false;
+    
 }
 
 
 int main() {
 	// your code goes here
 	int n,m;
-	cin>>n;
-	cin>>m;
+	cin>>n>>m;
 	
 	vector<vector<int>> graph(n);
+	
 	for(int i=0;i<m;i++){
 	    int u,v;
 	    cin>>u>>v;
 	    graph[u].push_back(v);
+	    
 	}
 	
-	vector<bool> visited(n,false);
-	cout<<detect_cycle_directed(graph,visited,0);
-	
-	
-	
+	cout<<cycle_detect(graph);
 
 }
