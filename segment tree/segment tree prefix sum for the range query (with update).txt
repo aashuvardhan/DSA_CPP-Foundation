@@ -80,7 +80,7 @@ int main() {
 	//updation
 	int index=1;
 	int new_val=25;
-	
+	//here in log time we are able to update only one element.
 	
 	
 	update_query(tree,0,n-1,0,new_val,index);
