@@ -83,7 +83,7 @@ int main() {
 	int n=5;
 	int k=4;
 	
-	unordered_set<int> st;
+	unordered_set<char> st;
 	unordered_map<char,vector<char>> graph;
 	
 	for(int i=0;i<n-1;i++){
@@ -104,17 +104,12 @@ int main() {
 	    }
 	}
 	
-	for(auto wrd: dict){
-	    for(char ch: wrd){
-	        if(st.find(ch)==st.end()){
-	            st.insert(ch);
-	        }
-	    }
-	    if(st.size()==k){
-	        break;
-	    }
+	//we are making the set of all the chars in the dict.
+	//we are already told that only the first k chars of standard dict is taken.
+	for(int i=0;i<k;i++){
+		st.insert((char)(97+i));
 	}
-	
+		
 	
 	unordered_set<char> visited;
 	vector<char> stk;
