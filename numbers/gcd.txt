@@ -11,7 +11,7 @@ int main() {
        m=n;
        n=t;
     }
-    int rem=m%n;
+    int rem=((m%n)+n)%n;
     while(rem!=0){
         m=n;
         n=rem;
