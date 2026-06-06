@@ -18,7 +18,7 @@ int main() {
 	left[0]=0;
 	int ptr_left=0;
 	for(int i=1;i<n;i++){
-	    //this means that the peak is reached after increasing at i if we start from left side.
+	    //this means that the peak is reached after increasing at i if we start from left side compared to the previous element.
 	    if(v[i]>v[i-1]){
 	        ptr_left=i;
 	    }
@@ -29,7 +29,7 @@ int main() {
 	right[n-1]=n-1;
 	int ptr_right=n-1;
 	for(int i=n-2;i>=0;i--){
-	    //this means that this i was the peak and now decresing will start towards right.
+	    //this means that this i was the peak and now decresing will start towards right compared to the previous element.
 	    if(v[i]>v[i+1]){
 	        ptr_right=i;
 	    }
