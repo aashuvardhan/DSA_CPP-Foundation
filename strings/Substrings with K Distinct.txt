@@ -1,0 +1,63 @@
+/*
+
+https://www.geeksforgeeks.org/problems/count-number-of-substrings4528/1
+
+
+You are given a string s consisting of lowercase characters and an integer k, You have to count all possible substrings that have exactly k distinct characters.
+
+Examples :
+
+Input: s = "abc", k = 2
+Output: 2
+Explanation: Possible substrings are ["ab", "bc"]
+Input: s = "aba", k = 2
+Output: 3
+Explanation: Possible substrings are ["ab", "ba", "aba"]
+Input: s = "aa", k = 1
+Output: 3
+Explanation: Possible substrings are ["a", "a", "aa"]
+Constraints:
+1 ≤ s.size() ≤ 106
+1 ≤ k ≤ 26
+
+*/
+
+
+
+int countSubstr(string& s, int k) {
+        // code here
+        unordered_map<int,int> umap;
+        int start=0;
+        int count=0;
+        int prev_count=0;
+        
+        for(int curr=0;curr<s.size();curr++){
+            
+            umap[s[curr]]++;
+            
+            if(umap.size()>k){
+                umap[s[start]]--;
+                
+                if(umap[s[start]]==0){
+                    umap.erase(s[start]);
+                }
+                start++;
+                prev_count=0;
+            }
+            
+            while(umap[s[start]]>1){
+                umap[s[start]]--;
+                start++;
+                prev_count++;
+            }
+            
+            if(umap.size()==k){
+                count+=(prev_count+1);
+            }
+            
+            
+        }
+        return count;
+        
+    }
+
