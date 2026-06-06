@@ -19,7 +19,7 @@ int main() {
 	for(auto ele: v){
 	    prefix_sum+=ele;
 	    
-	    int mod=prefix_sum%k;
+	    int mod = ((prefix_sum % k) + k) % k;
 	    
 	    if(mod<0){
 	        mod=-mod;
