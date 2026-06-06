@@ -81,7 +81,7 @@ Node* findMid(Node* head){
     Node* slow=head;
     Node* fast=head->next;
     
-    while(fast!=NULL and fast->next!=NULL){
+    while(fast!=NULL and fast->next!=NULL and fast->next->next!=NULL){
         slow=slow->next;
         fast=fast->next->next;
     }
