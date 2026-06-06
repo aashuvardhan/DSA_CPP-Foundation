@@ -33,7 +33,7 @@ vector<int> postorder(Treenode* root){
     if(root->data>left_value[1] and root->data< right_value[2]){
         int total=left_value[0]+right_value[0]+1;
         res=max(res,total);
-        return {total, right_value[2],left_value[1]};
+        return {total, right_value[1],left_value[2]};
     }else{
         return {0,INT_MAX,INT_MIN};
     }
