@@ -49,12 +49,14 @@ int longestPerfectPiece(int arr[], int n) {
     
     for (int right = 0; right < n; ++right) {
         // Maintain the max monotonic queue
+        // here we are trying to maintain the maximum element in the front in sequence.
         while (!maxQ.empty() && arr[maxQ.back()] <= arr[right]) {
             maxQ.pop_back();
         }
         maxQ.push_back(right);
         
         // Maintain the min monotonic queue
+        // here we are trying to maintain the minimum element in the front in sequence.
         while (!minQ.empty() && arr[minQ.back()] >= arr[right]) {
             minQ.pop_back();
         }
