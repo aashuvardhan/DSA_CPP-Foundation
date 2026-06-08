@@ -5,7 +5,6 @@ nodes in order to preserve the original linked list. any other method tampers th
 
 */
 
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -17,47 +16,8 @@ struct Node{
 	        next=NULL;
 	    }
 	};
-	
-	
-Node* deepCopy(Node* head){
-    Node* newhead=NULL;
-    
-    if(head==NULL){
-        return newhead;
-    }else{
-        newhead= new Node(head->data);
-    }
-    Node* curr=newhead;
-    head=head->next;
-    
-    while(head!=NULL){
-        Node* temp=new Node(head->data);
-        curr->next=temp;
-        curr=curr->next;
-        head=head->next;
-    }
-    return newhead;
-    
-}
-	
-	
 
 
-Node* removeDuplicate(Node* head){
-    Node* newhead=deepCopy(head);
-    Node* curr=newhead;
-    while(curr!=NULL and curr->next!=NULL){
-        if(curr->data==curr->next->data){
-            Node* nextt=curr->next;
-            curr->next=nextt->next;
-            delete(nextt);
-        }else{
-            curr=curr->next;
-        }
-    }
-    return newhead;
-    
-}
 
 void traversal(Node* head){
     
@@ -71,9 +31,28 @@ void traversal(Node* head){
 
 
 
+Node* removeDuplicate(Node* head){
+    Node* curr=head;
+    
+    while(curr!=NULL and curr->next!=NULL){
+        Node* nextt=curr->next;
+        if(curr->data==nextt->data){
+            curr->next=nextt->next;
+            delete(nextt);
+        }else{
+            curr=curr->next;
+        }
+    }
+    
+    return head;
+    
+    
+}
+
+
+
 int main() {
 	// your code goes here
-	
 	Node* head=new Node(10);
 	Node* temp=new Node(20);
 	Node* temp1=new Node(30);
@@ -89,12 +68,11 @@ int main() {
 	
 	traversal(head);
 	
-	
 	Node* rmdup=removeDuplicate(head);
 	
 
 	traversal(rmdup);
-	traversal(head);
 	
 	
+
 }
