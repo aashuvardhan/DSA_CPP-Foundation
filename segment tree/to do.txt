@@ -1,2 +1,0 @@
-
-3.  https://www.geeksforgeeks.org/dsa/queries-to-find-maximum-product-pair-in-range-with-updates/
