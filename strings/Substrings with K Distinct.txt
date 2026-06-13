@@ -36,6 +36,7 @@ int countSubstr(string& s, int k) {
             umap[s[curr]]++;
             
             if(umap.size()>k){
+                //over here the code guarantees that the umap[str[start]] will contain only one element. coz of the while loop next.
                 umap[s[start]]--;
                 
                 if(umap[s[start]]==0){
@@ -46,6 +47,8 @@ int countSubstr(string& s, int k) {
             }
             
             while(umap[s[start]]>1){
+                //every time we are in the for loop since start we are making sure that the element at the start will have only 1 in umap. and >1 indicates that there are more 
+                //characters than required for unique k. so we increase the prev_count.
                 umap[s[start]]--;
                 start++;
                 prev_count++;
