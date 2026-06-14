@@ -1,5 +1,5 @@
 
-httpsleetcode.comproblemsn-ary-tree-preorder-traversaldescription
+https://leetcode.comproblemsn-ary-tree-preorder-traversaldescription
 
 
 #include bitsstdc++.h
