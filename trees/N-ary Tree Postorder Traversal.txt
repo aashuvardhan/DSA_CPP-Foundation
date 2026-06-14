@@ -7,7 +7,7 @@ using namespace std;
 
 struct Node{
     int data;
-    vectorNode  children;
+    vector<Node* > children;
     
     Node(int x){
         data=x;
