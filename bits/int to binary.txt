@@ -7,6 +7,8 @@ int main() {
 	string str=bitset<32>(45).to_string();
 	//this is the only way to convert the int to binary in cpp.
 	
-	cout<<str;
+	cout<<str<<endl;
+	cout<<stoi(str,0,2)<<endl;
+
 
 }
