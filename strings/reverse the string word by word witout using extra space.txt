@@ -1,3 +1,4 @@
+/*
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -31,3 +32,29 @@ int main() {
 	reverse(&str[0],0,str.size()-1);
 	cout<<str;
 }
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	string str="Yash Vardhan";
+	int n=str.size();
+	
+	int start=0;
+	int end=0;
+	while(end<n){
+	    if(str[end]==' '){
+	        reverse(str.begin()+start,str.begin()+end);
+	        start=end+1;
+	    }
+	    end++;
+	}
+	reverse(str.begin()+start,str.begin()+end);
+	
+	cout<<str<<endl;
+
+}
+
+
