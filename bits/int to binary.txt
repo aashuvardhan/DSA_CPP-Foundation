@@ -1,10 +1,12 @@
 #include <bits/stdc++.h>
-#include <cstdlib>
+#include <bitset>
 using namespace std;
 
 int main() {
 	// your code goes here
-	string str=bitset<32>(45).to_string();
+	int len=(int)log2(45);
+
+	string str=bitset<32>(45).to_string().substr(32-len-1);
 	//this is the only way to convert the int to binary in cpp.
 	
 	cout<<str<<endl;
