@@ -33,7 +33,9 @@ int main() {
 	    if(col<n){
 	        pq.push({-v[row][col+1],row,col+1});
 	        maxi=max(maxi,v[row][col+1]);
-	    }
+	    }else{
+			break;
+		}
 	    
 	    
 	}
