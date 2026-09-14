@@ -1,37 +1,36 @@
-#include <bits/stdc++.h>
-using namespace std;
 
-int kadane_algo(int *ptr,int n){
-    int res=*ptr;
-    int maxend=*ptr;
-    
-    for(int i=1;i<n;i++){
-        maxend=max(maxend+*(ptr+i),*(ptr+i));
-        res=max(res,maxend);
+    int kadane(vector<int>& arr){
+        int maxhere=arr[0];
+        int maxtill=arr[0];
+
+        for(int i=1;i<arr.size();i++){
+            maxhere=max(maxhere+arr[i],arr[i]);
+            maxtill=max(maxtill,maxhere);
+        }
+        return maxtill;
     }
-    return res;
-}
 
 
-int main() {
-	// your code goes here
-    vector<int> v={-3,4,6,-2};
-    int *ptr=&(*(v.begin()));
-    
-    
-    int normal_kadane=kadane_algo(ptr,v.size());
-    
-    
-    int total=0;
-    for(int i=0;i<v.size();i++){
-        total+=v[i];
-        v[i]=-v[i];
+    int maxSubarraySumCircular(vector<int>& nums) {
+        
+        int normal=kadane(nums);
+        
+        if(normal<0){
+            //if normal is less than 0 then it is sure that the entire array is already negative 
+            //hence if you go finding the circular => sum(of all neg)+sum(of all pos) = 0
+            //which will denote empty subarray. which is not the requirement. 
+            return normal;
+        }
+
+
+        int total=0;
+        for(int i=0;i<nums.size();i++){
+            total+=nums[i];
+            nums[i]=-nums[i];
+        }
+
+        int circular=total+kadane(nums);
+        return max(normal,circular);
+
+
     }
-    int circular=total+kadane_algo(ptr,v.size());
-    
-    int res=max(normal_kadane,circular);
-    cout<<res;
-    
-    
-    
-}
